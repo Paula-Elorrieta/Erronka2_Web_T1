@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { Button } from 'primeng/button';
 
 export const routes: Routes = [
     {
@@ -9,6 +10,7 @@ export const routes: Routes = [
             { path: '**', redirectTo: 'login' }
         ]
     },
+
     { path: '404', component: ErrorPageComponent },
     { path: '**', redirectTo: '404' },
 
