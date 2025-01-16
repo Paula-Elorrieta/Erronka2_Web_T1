@@ -1,0 +1,10 @@
+<p-floatlabel class="w-full md:w-56" variant="in">
+  <p-select
+    [(ngModel)]="selected"
+    [options]="hizkuntzak"
+    (ngModelChange)="hizkuntzaAldatu($event)"
+    inputId="in_label"
+    variant="filled"
+  ></p-select>
+  <label for="in_label">Hizkuntza aukeratu:</label>
+</p-floatlabel>

@@ -1,0 +1,10 @@
+{
+  "login": "Iniciar Sesión",
+  "logout": "Cerrar Sesión",
+  "email": "Correo Electrónico",
+  "password": "Contraseña",
+  "email-placeholder": "Introduce tu correo electrónico",
+  "password-placeholder": "Introduce tu contraseña",
+  "username": "Nombre de Usuario",
+  "username-placeholder": "Introduce tu nombre de usuario"
+}

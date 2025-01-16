@@ -1,0 +1,10 @@
+{
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "email-placeholder": "Enter your email",
+    "password-placeholder": "Enter your password",
+    "username": "Username",
+    "username-placeholder": "Enter your username"
+}

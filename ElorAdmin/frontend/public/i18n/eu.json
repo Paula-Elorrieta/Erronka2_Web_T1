@@ -1,0 +1,10 @@
+{
+    "login": "Hasi saioa",
+    "logout": "Saio itxi",
+    "email": "Emaila",
+    "password": "Pasahitza",
+    "email-placeholder": "Idatzi zure emaila",
+    "password-placeholder": "Idatzi zure pasahitza",
+    "username": "Erabiltzaile-izena",
+    "username-placeholder": "Idatzi zure erabiltzaile-izena"
+}

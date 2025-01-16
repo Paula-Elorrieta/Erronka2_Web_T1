@@ -1,4 +1,3 @@
-/* General container setup */
 .login-container {
   display: flex;
   justify-content: center;
@@ -9,7 +8,6 @@
   margin: 0;
 }
 
-/* Custom login card style */
 .login-card {
   width: 100%;
   max-width: 400px;
@@ -21,13 +19,11 @@
   border: 2px solid #6e8efb;
 }
 
-/* Title */
 .login-card h2 {
   margin-bottom: 1.5rem;
   color: #333;
 }
 
-/* Form layout */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -46,7 +42,6 @@
   font-size: 1rem;
 }
 
-/* Input field styling */
 .input-wrapper {
   display: flex;
   align-items: center;
@@ -70,11 +65,10 @@
   background-color: #fff;
   color: #333;
   outline: none;
-  border-radius: 25px; /* Rounded corners for the input */
+  border-radius: 25px; 
   transition: all 0.3s ease;
 }
 
-/* Button styling */
 .form-actions {
   margin-top: 1.5rem;
 }
@@ -96,8 +90,16 @@
 
 .login-button:hover {
   background-color: #5a78d7;
+  
 }
 
 .login-button i {
   margin-right: 0.5rem;
+}
+
+.switch-hizkuntza {
+  position: absolute;
+  font-family: 'Arial', sans-serif;
+  top: 1rem;
+  right: 1rem;
 }
