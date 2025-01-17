@@ -28,11 +28,13 @@ app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ message: "Erabiltzailea eta pasahitza behar dira" });
+    return res
+      .status(400)
+      .json({ message: "Erabiltzailea eta pasahitza behar dira" });
   }
 
-  const query = "SELECT * FROM users WHERE username = ?";
-  db.query(query, [username], (err, results) => {
+  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+  db.query(query, [username, password], (err, results) => {
     if (err) {
       console.error("Errorea kontsultan:", err);
       return res.status(500).json({ message: "Errorea zerbitzarian" });
@@ -40,24 +42,13 @@ app.post("/login", (req, res) => {
 
     if (results.length > 0) {
       const user = results[0];
-
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          console.error("Errorea pasahitza konparatzerakoan:", err);
-          return res.status(500).json({ message: "Errorea zerbitzarian" });
-        }
-
-        if (isMatch) {
-          return res.status(200).json({ message: "Login ondo", user: user });
-        } else {
-          return res.status(401).json({ message: "Erabiltzailea edo pasahitz okerra" });
-        }
-      });
+      return res.status(200).json({ message: "Login ondo", user: user });
     } else {
       return res.status(401).json({ message: "Erabiltzailea edo pasahitz okerra" });
     }
   });
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

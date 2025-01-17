@@ -1,0 +1,67 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.main-menu {
+  background: #212121;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  overflow: hidden;
+  transition: width 0.3s;
+  z-index: 1000;
+}
+
+.main-menu:hover {
+  width: 250px;
+}
+
+.main-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.main-menu li {
+  width: 250px;
+}
+
+.main-menu a {
+  color: #999;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.main-menu a:hover {
+  background: #000;
+  color: #fff;
+}
+
+.main-menu .nav-text {
+  margin-left: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.main-menu:hover .nav-text {
+  opacity: 1;
+}
+
+.main-menu .fa-2x {
+  font-size: 20px;
+  width: 40px;
+  text-align: center;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

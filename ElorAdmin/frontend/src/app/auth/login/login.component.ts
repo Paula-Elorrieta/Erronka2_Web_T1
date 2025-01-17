@@ -32,8 +32,9 @@ export class LoginComponent {
       (response) => {
         console.log('Login ondo:', response);
         alert('Ongi etorri!');
-        // Aquí puedes almacenar el objeto de usuario en el almacenamiento local o global
         localStorage.setItem('user', JSON.stringify(response.user));
+
+        window.location.href = '/pages/home';
       },
       (error) => {
         console.error('Errorea loginean:', error);
