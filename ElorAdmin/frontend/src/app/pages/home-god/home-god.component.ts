@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home-god',
-  imports: [],
+  standalone: true,
   templateUrl: './home-god.component.html',
-  styleUrl: './home-god.component.css'
+  styleUrls: ['./home-god.component.css']
 })
-export class HomeGodComponent {
+export class HomeGodComponent {}
 
-}

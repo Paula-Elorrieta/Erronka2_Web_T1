@@ -5,6 +5,8 @@ import { HomeGodComponent } from './pages/home-god/home-god.component';
 import { HomeIrakasleComponent } from './pages/home-irakasle/home-irakasle.component';
 import { HomeIkasleComponent } from './pages/home-ikasle/home-ikasle.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AuthGuard } from './guards/auth.guard';
+import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -17,12 +19,18 @@ export const routes: Routes = [
     ],
   },
 
-  { path: 'pages/homeGod', component: HomeGodComponent },
-  { path: 'pages/homeIrakasle', component: HomeIrakasleComponent },
-  { path: 'pages/homeIkasle', component: HomeIkasleComponent },
-  { path: 'pages/home', component: HomeComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'homegod', component: HomeGodComponent },
+      { path: 'homeadmin', component: HomeAdminComponent },
+      { path: 'homeirakasle', component: HomeIrakasleComponent },
+      { path: 'homeikasle', component: HomeIkasleComponent },
+    ],
+  },
 
   { path: '404', component: ErrorPageComponent },
-
   { path: '**', redirectTo: '404' },
 ];

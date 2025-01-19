@@ -31,10 +31,24 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
         console.log('Login ondo:', response);
-        alert('Ongi etorri!');
-        localStorage.setItem('user', JSON.stringify(response.user));
+        const user = response.user;
+        localStorage.setItem('user', JSON.stringify(user));
 
-        window.location.href = '/pages/home';
+        // Orria aldatu erabiltzaile motaren arabera
+        switch (user.tipo_id) {
+          case 1:
+            window.location.href = '/home/homegod';
+            break;
+          case 2:
+            window.location.href = '/home/homeadmin';
+            break;
+          case 3:
+            window.location.href = '/home/homeirakasle';
+            break;
+          case 4:
+            window.location.href = '/home/homeikasle';
+            break;
+        }
       },
       (error) => {
         console.error('Errorea loginean:', error);

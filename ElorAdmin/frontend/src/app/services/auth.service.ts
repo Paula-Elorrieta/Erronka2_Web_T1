@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000';
-  private readonly userKey = 'erabiltzaileLogueatua';
+  private readonly userKey = 'user';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,6 @@ export class AuthService {
 
   getErabiltzaileLogueatua(): any {
     const user = localStorage.getItem(this.userKey);
-    return user ? JSON.parse(user) : null; 
+    return user ? JSON.parse(user) : null;
   }
 }

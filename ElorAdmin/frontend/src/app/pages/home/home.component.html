@@ -1,19 +1,23 @@
-<header>
-    <h1>Home Page</h1>
-</header>
+<app-megamenu></app-megamenu>
 
-<app-sidebar-menu></app-sidebar-menu>
+<!-- Los GOD solo pueden hacer de todo con los usuarios, mas no pueden ni eliminar su usuario ni otros -->
+<!-- Los ADMIN pueden hacer de todos en los usuarios y pueden mirar las bileras -->
+          <!-- ADMIN y GOD tienene que tener un textito mostrando cuantos profes y cuantos alumnos hay -->
 
-<div *ngIf="userLogged.tipo_id == 1">
+<!-- Los IRAKASLEAK pueden ver sus datos y sus bileras. Pueden ver los datos de los alumnos y filtrarlos de alguna forma -->
+<!-- Los IKASLEAK pueden ver su home, sus datos, el ordutegi, y sus bileras -->
+
+<div *ngIf="userLogged?.tipo_id == 1" >
   <app-home-god></app-home-god>
 </div>
-<div *ngIf="userLogged.tipo_id == 2">
-    <app-home-god></app-home-god>
-</div>
-<div *ngIf="userLogged.tipo_id == 3">
-    <app-home-irakasle></app-home-irakasle>
-</div>
-<div *ngIf="userLogged.tipo_id == 4">
-    <app-home-ikasle></app-home-ikasle>
+
+<div *ngIf="userLogged?.tipo_id == 2">
+  <app-home-admin></app-home-admin>
 </div>
 
+<div *ngIf="userLogged?.tipo_id == 3">
+  <app-home-irakasle></app-home-irakasle>
+</div>
+<div *ngIf="userLogged?.tipo_id == 4">
+  <app-home-ikasle></app-home-ikasle>
+</div>
