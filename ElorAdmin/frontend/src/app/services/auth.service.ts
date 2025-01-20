@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { User } from '../interface/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3001';
   private readonly userKey = 'user';
 
   constructor(private http: HttpClient) {}
@@ -20,7 +21,7 @@ export class AuthService {
     window.location.href = '/auth/login';
   }
 
-  getErabiltzaileLogueatua(): any {
+  getErabiltzaileLogueatua(): User {
     const user = localStorage.getItem(this.userKey);
     return user ? JSON.parse(user) : null;
   }

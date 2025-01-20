@@ -6,22 +6,23 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MegaMenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-// import {icons } from 'primeng/icons';
+import { ImageModule } from 'primeng/image';
 
 
 @Component({
   selector: 'app-megamenu',
-  imports: [MegaMenuModule, CommonModule, ButtonModule, AvatarModule, AvatarGroupModule],
+  imports: [MegaMenuModule, CommonModule, ButtonModule, AvatarModule, AvatarGroupModule, ImageModule],
   templateUrl: './megamenu.component.html',
   styleUrl: './megamenu.component.css'
 })
 export class MegamenuComponent {
 
+  isHovered: boolean = false;
+
   constructor(private router: Router) {}
 
   items: MegaMenuItem[] = [
     { label: 'HOME', icon: 'pi pi-fw pi-home', command: () => this.router.navigate(['/home']) },
-    { label: 'LOGOUT', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() },
   ];
 
   logout() {

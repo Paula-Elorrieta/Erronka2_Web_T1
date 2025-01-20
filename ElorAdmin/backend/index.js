@@ -49,8 +49,26 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.get("/get-users", (req, res) => {
+  const query = "SELECT * FROM users";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Errorea datu-basera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
+    }
 
-const PORT = 3000;
+    if (results.length > 0) {
+      return res.status(200).json({ message: "Erabiltzaileak lortu dira", users: results });
+    } else {
+      return res.status(404).json({ message: "Erabiltzaileak ez dira lortu" });
+    }
+  });
+});
+
+
+
+
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Zerbitzaria http://localhost:${PORT}-n martxan dago`);
 });

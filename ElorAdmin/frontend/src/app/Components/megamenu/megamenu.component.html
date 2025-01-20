@@ -1,19 +1,17 @@
-<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex', background: 'linear-gradient(135deg, #6e8efb, #a777e3)', 'border': '1px solid white' }" class="w-full">
     <ng-template #start>
-        <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
-            <path d="..." fill="var(--primary-color)" />
-        </svg>
+        <a href="/home"><p-image src="img/logo.png" alt="logo" width="130" height="50" [style]="{'cursor': 'pointer'}"></p-image></a>
     </ng-template>
-    <ng-template #item let-item>
+    <ng-template #item let-item >
         <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
-            <i [ngClass]="item.icon"></i> <!-- Asegúrate de que aquí se utiliza correctamente el icono -->
-            <span class="ml-2">{{ item.label }}</span>
+            <i [ngClass]="item.icon"></i> 
+            <span class="text-lg font-semibold">{{ item.label }}</span>
         </a>
-        <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
-            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
-                <i [ngClass]="item.icon + ' text-lg'"></i> <!-- Aquí también -->
+        <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2" [style]="{'cursor': 'pointer'}">
+            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12" >
+                <i [ngClass]="item.icon + ' text-lg'"></i> 
             </span>
-            <span class="inline-flex flex-col gap-1">
+            <span class="inline-flex flex-col gap-1" >
                 <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
                 <span class="whitespace-nowrap">{{ item.subtext }}</span>
             </span>
@@ -25,6 +23,21 @@
         </div>
     </ng-template>
     <ng-template #end>
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-    </ng-template>
+        <button 
+        pButton 
+        label="LOGOUT" 
+        icon="pi pi-fw pi-sign-out" 
+        class="p-button-danger text-lg" 
+        [style]="{
+            'background': isHovered ? 'rgba(255, 255, 255, 0.2)' : 'transparent', 
+            'border': '0px', 
+            'color': 'white', 
+            'font-size': '16px', 
+            'transition': 'background 0.3s ease',
+        }" 
+        (mouseenter)="isHovered = true" 
+        (mouseleave)="isHovered = false" 
+        (click)="logout()">
+    </button>
+        </ng-template>
 </p-megamenu>

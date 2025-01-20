@@ -1,0 +1,15 @@
+@import "primeicons/primeicons.css";
+
+
+#taulaErabiltzaileak {
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    padding: 20px;
+}
+
+p-table {
+    width: 100%;
+    max-width: 1200px; 
+}
