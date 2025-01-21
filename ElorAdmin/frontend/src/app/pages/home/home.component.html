@@ -7,11 +7,8 @@
 <!-- Los IRAKASLEAK pueden ver sus datos y sus bileras. Pueden ver los datos de los alumnos y filtrarlos de alguna forma -->
 <!-- Los IKASLEAK pueden ver su home, sus datos, el ordutegi, y sus bileras -->
 
-<div *ngIf="userLogged?.tipo_id == 1" >
-  <app-home-god></app-home-god>
-</div>
 
-<div *ngIf="userLogged?.tipo_id == 2">
+<div *ngIf="userLogged?.tipo_id == 2 || userLogged?.tipo_id == 1">
   <app-home-admin></app-home-admin>
 </div>
 

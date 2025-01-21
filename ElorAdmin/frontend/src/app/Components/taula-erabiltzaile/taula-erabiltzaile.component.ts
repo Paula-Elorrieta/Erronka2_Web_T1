@@ -4,11 +4,14 @@ import { ButtonModule } from 'primeng/button';
 import { User } from '../../interface/user';
 import { QueryService } from '../../services/query.service';
 import { CommonModule } from '@angular/common';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AuthService } from '../../services/auth.service';
+import { ArgazkiPipe } from '../../pipes/argazki.pipe';
 
 @Component({
   selector: 'app-taula-erabiltzaile',
-  imports: [TableModule, ButtonModule, CommonModule],
+  imports: [TableModule, ButtonModule, CommonModule, AvatarModule, AvatarGroupModule, ArgazkiPipe],
   templateUrl: './taula-erabiltzaile.component.html',
   styleUrl: './taula-erabiltzaile.component.css',
 })

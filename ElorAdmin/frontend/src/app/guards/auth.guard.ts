@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
       // Egiaztatu erabiltzaile mota eta baimendutako orriak
       const requestedRoute = state.url;
       if (
-        (tipoId === 1) && requestedRoute.includes('/homegod') ||
+        (tipoId === 1) && requestedRoute.includes('/homeadmin') ||
         tipoId === 2 && requestedRoute.includes('/homeadmin') ||
         tipoId === 3 && requestedRoute.includes('/homeirakasle') ||
         tipoId === 4 && requestedRoute.includes('/homeikasle')

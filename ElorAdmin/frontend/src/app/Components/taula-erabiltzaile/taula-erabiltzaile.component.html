@@ -1,9 +1,4 @@
 <div id="taulaErabiltzaileak">
-    <div class="mb-4">
-        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
-        <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
-        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
-    </div>
     <p-table
         [value]="erabiltzaileak"
         [paginator]="true"
@@ -22,8 +17,9 @@
                 <th>Apellidos</th>
                 <th>DNI</th>
                 <th>Tipo</th>
+                <th>Argazkia</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
+                <th *ngIf="erabiltzaileLogueatua.tipo_id != 1">Eliminar</th>
             </tr>
         </ng-template>
         <ng-template #body let-erabiltzaile>
@@ -33,17 +29,22 @@
                 <td>{{ erabiltzaile.apellidos }}</td>
                 <td>{{ erabiltzaile.dni }}</td>
                 <td>{{ erabiltzaile.tipo_id }}</td>
-                <td><button>editar</button></td>
                 <td>
-                    <button pButton pRipple *ngIf="erabiltzaile.tipo_id != 1" label="Eliminar" icon="pi pi-trash"></button>
+                    <p-avatar 
+                      [image]="erabiltzaile | argazki" 
+                      size="large" 
+                      shape="circle">
+                    </p-avatar>
+                  </td>
+                  
+                <td><p-button label="Editatu" icon="pi pi-user-edit" [raised]="true" severity="help" /></td>
+                <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
+                    <p-button label="Ezabatu" *ngIf="erabiltzaile.tipo_id != 1" icon="pi pi-trash" [raised]="true" severity="danger" />
                 </td>
             </tr>
         </ng-template>
         <ng-template #paginatorleft>
-            <p-button type="button" icon="pi pi-plus" text />
-        </ng-template>
-        <ng-template #paginatorright>
-            <p-button type="button" icon="pi pi-cloud" text />
+            <p-button type="button" icon="pi pi-user-plus" label="Gehitu" variant="outlined"></p-button>
         </ng-template>
     </p-table>
 </div>
