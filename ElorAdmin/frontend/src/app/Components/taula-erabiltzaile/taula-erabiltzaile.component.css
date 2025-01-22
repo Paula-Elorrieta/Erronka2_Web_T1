@@ -11,5 +11,17 @@
 
 p-table {
     width: 100%;
-    max-width: 1200px; 
+    max-width: 1200px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
+p-table th {
+  border-bottom: 1px solid #ddd;
+}
+
+p-table td {
+  border-bottom: 1px solid #ddd;
+}
+
+
+

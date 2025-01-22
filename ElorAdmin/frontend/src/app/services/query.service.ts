@@ -16,7 +16,7 @@ export class QueryService {
     return this.http.get(`${this.apiUrl}/get-users`);
   }
 
-
+  
 
 
 }

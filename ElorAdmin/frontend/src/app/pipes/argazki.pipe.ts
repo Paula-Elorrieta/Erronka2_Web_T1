@@ -12,20 +12,17 @@ export class ArgazkiPipe implements PipeTransform {
       console.log('Argazkia:', erabiltzailea.argazkia);
 
       if (erabiltzailea.argazkia.type === 'Buffer') {
-        const buffer = (erabiltzailea.argazkia as any).data;
-        const base64String = this.bufferToBase64(buffer);
-        
-        return `data:image/png;base64,${base64String}`;
+        const buffer = erabiltzailea.argazkia.data; // Asegúrate de que es un array de números
+
+        // Verifica que el buffer exista y sea válido
+        if (Array.isArray(buffer) && buffer.length > 0) {
+          const uint8Array = new Uint8Array(buffer);
+          const binaryString = uint8Array.reduce((data, byte) => data + String.fromCharCode(byte), '');
+          return `data:image/jpeg;base64,${binaryString}`;
+        }
       }
-     
-      return 'img/no-image.png';
-    } else {
-      return 'img/no-image.png';  
     }
+    return 'img/no-image.png';
   }
 
-  private bufferToBase64(buffer: number[]): string {
-    const binary = String.fromCharCode.apply(null, buffer);
-    return window.btoa(binary);  
-  }
 }

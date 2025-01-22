@@ -30,13 +30,13 @@
                 <td>{{ erabiltzaile.dni }}</td>
                 <td>{{ erabiltzaile.tipo_id }}</td>
                 <td>
-                    <p-avatar 
-                      [image]="erabiltzaile | argazki" 
-                      size="large" 
+                    <p-avatar
+                      [image]="erabiltzaile | argazki"
+                      size="large"
                       shape="circle">
                     </p-avatar>
                   </td>
-                  
+
                 <td><p-button label="Editatu" icon="pi pi-user-edit" [raised]="true" severity="help" /></td>
                 <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
                     <p-button label="Ezabatu" *ngIf="erabiltzaile.tipo_id != 1" icon="pi pi-trash" [raised]="true" severity="danger" />
