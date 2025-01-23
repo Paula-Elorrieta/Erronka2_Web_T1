@@ -66,9 +66,33 @@ app.get("/get-users", (req, res) => {
   });
 });
 
+app.get("/get-horarios/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10); 
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "El parámetro 'id' debe ser un número válido" });
+  }
 
+  const query = "SELECT dia, hora, profe_id, modulo_id FROM horarios WHERE profe_id = ?";
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error al conectarse a la base de datos:", err);
+      return res.status(500).json({ message: "Error en el servidor" });
+    }
 
+    if (results.length > 0) {
+      const horarios = results.map(row => ({
+        dia: row.dia,
+        hora: row.hora,
+        profe_id: row.profe_id,
+        modulo_id: row.modulo_id,
+      }));
 
+      return res.status(200).json({ message: "Horarios obtenidos", horarios });
+    } else {
+      return res.status(404).json({ message: "No se encontraron horarios" });
+    }
+  });
+});
 
 
 

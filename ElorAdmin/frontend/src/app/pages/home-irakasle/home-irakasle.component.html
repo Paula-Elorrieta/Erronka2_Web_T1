@@ -1,1 +1,19 @@
-<p></p>
+<p-table [value]="horarios" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Hora</th>
+      <th>Día</th>
+      <th>Materia</th>
+      <th>Ubicación</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-horario>
+    <tr>
+      <td>{{ horario.dia }}</td>
+      <td>{{ horario.dia }}</td>
+      <td>{{ horario.modulo_id }}</td>
+      <td>{{ horario.profe_id }}</td>
+    </tr>
+  </ng-template>
+</p-table>

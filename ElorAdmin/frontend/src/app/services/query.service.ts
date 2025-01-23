@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador map
 import { User } from '../interface/user';
+import { Horario } from '../interface/horarios';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,11 @@ export class QueryService {
       map((response) => response.users.find((user) => user.id?.toString() == id))
     );
   }
+
+  getHorarios(userId: number): Observable<Horario[]> {
+    return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios/${userId}`);
+  }
+
 
 
 
