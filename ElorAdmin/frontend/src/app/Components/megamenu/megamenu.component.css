@@ -7,8 +7,9 @@
 }
 
 
-
-
-
-
-
+.switch-hizkuntza {
+	position: absolute;
+	font-family: 'Arial', sans-serif;
+	top: 6rem;
+	right: 1rem;
+  }

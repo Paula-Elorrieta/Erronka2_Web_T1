@@ -7,30 +7,29 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MegaMenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ImageModule } from 'primeng/image';
+import { SwitchHizkuntzaComponent } from "../switch-hizkuntza/switch-hizkuntza.component";
+import { User } from '../../interface/user';
 
 
 @Component({
   selector: 'app-megamenu',
-  imports: [MegaMenuModule, CommonModule, ButtonModule, AvatarModule, AvatarGroupModule, ImageModule],
+  imports: [MegaMenuModule, CommonModule, ButtonModule, AvatarModule, AvatarGroupModule, ImageModule, SwitchHizkuntzaComponent],
   templateUrl: './megamenu.component.html',
   styleUrl: './megamenu.component.css'
 })
 export class MegamenuComponent {
 
   isHovered: boolean = false;
+  isHovered2: boolean = false;
+  userLogged: User = JSON.parse(localStorage.getItem('user') || '{}');
 
   constructor(private router: Router) {}
 
-  items: MegaMenuItem[] = [
-    { label: 'HOME', icon: 'pi pi-fw pi-home', command: () => this.router.navigate(['/home']) },
-  ];
-
   logout() {
-    // Lógica de cierre de sesión
     localStorage.removeItem('user');
     this.router.navigate(['/auth/login']);
   }
 
-  
+
 
 }

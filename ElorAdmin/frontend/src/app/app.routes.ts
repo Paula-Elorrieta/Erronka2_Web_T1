@@ -6,6 +6,7 @@ import { HomeIkasleComponent } from './pages/home-ikasle/home-ikasle.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
+import { DetailsComponent } from './users/details/details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -26,6 +27,14 @@ export const routes: Routes = [
       { path: 'homeadmin', component: HomeAdminComponent },
       { path: 'homeirakasle', component: HomeIrakasleComponent },
       { path: 'homeikasle', component: HomeIkasleComponent },
+    ],
+  },
+
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'details/:id', component: DetailsComponent }, 
     ],
   },
 

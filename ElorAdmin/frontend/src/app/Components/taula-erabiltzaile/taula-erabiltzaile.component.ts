@@ -8,20 +8,49 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AuthService } from '../../services/auth.service';
 import { ArgazkiPipe } from '../../pipes/argazki.pipe';
+import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { EzabatuDialogComponent } from '../../users/ezabatu-dialog/ezabatu-dialog.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-taula-erabiltzaile',
-  imports: [TableModule, ButtonModule, CommonModule, AvatarModule, AvatarGroupModule, ArgazkiPipe],
+  imports: [
+    TableModule,
+    ButtonModule,
+    CommonModule,
+    AvatarModule,
+    AvatarGroupModule,
+    ArgazkiPipe,
+    TranslateModule,
+    ConfirmDialogModule,
+    DialogModule,
+  ],
   templateUrl: './taula-erabiltzaile.component.html',
-  styleUrl: './taula-erabiltzaile.component.css',
+  styleUrls: ['./taula-erabiltzaile.component.css'],
+  standalone: true,
+  providers: [ MessageService, ConfirmationService ],
 })
 export class TaulaErabiltzaileComponent implements OnInit {
   erabiltzaileak: User[] = [];
   erabiltzaileLogueatua!: User;
   first: number = 0;
   rows: number = 10;
+  selectedUser!: User;
+  displayDeleteDialog: boolean = false; // Declaración de la propiedad para mostrar el diálogo
 
-  constructor(private queryS: QueryService, private authS : AuthService) {}
+  constructor(
+    private queryS: QueryService,
+    private authS: AuthService,
+    private router: Router,
+    private translateService: TranslateService,
+    private confirmationService: ConfirmationService,
+  ) {
+    this.translateService.setDefaultLang('eu');
+    this.translateService.use('eu');
+  }
 
   ngOnInit() {
     this.erabiltzaileLogueatua = this.authS.getErabiltzaileLogueatua();
@@ -37,7 +66,6 @@ export class TaulaErabiltzaileComponent implements OnInit {
       }
     );
   }
-  
 
   next() {
     this.first = this.first + this.rows;
@@ -62,5 +90,34 @@ export class TaulaErabiltzaileComponent implements OnInit {
   pageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
+  }
+
+  ikusiXehetasunak(user: User) {
+    this.router.navigate(['/users/details', user.id]);
+  }
+
+  openDeleteDialog(user: User) {
+    this.selectedUser = user;
+    this.displayDeleteDialog = true;
+  }
+
+  ezabatuErabiltzaile(user: User) {
+    this.selectedUser = user;
+
+    this.confirmationService.confirm({
+      message: `¿Estás seguro de que deseas eliminar a ${user.nombre}?`,
+      header: 'Confirmar eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        // // Acción al aceptar
+        // this.erabiltzaileService.deleteUser(user.id).subscribe(() => {
+        //   this.messageService.add({ severity: 'success', summary: 'Eliminado', detail: `${user.nombre} ha sido eliminado.` });
+        // });
+      },
+      reject: () => {
+        // Acción al rechazar
+        // this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'Eliminación cancelada' });
+      },
+    });
   }
 }

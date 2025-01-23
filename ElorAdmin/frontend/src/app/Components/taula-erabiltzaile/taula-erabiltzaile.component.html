@@ -1,50 +1,72 @@
+
 <div id="taulaErabiltzaileak">
     <p-table
-        [value]="erabiltzaileak"
-        [paginator]="true"
-        [rows]="10"
-        [first]="first"
-        [showCurrentPageReport]="true"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        (onPage)="pageChange($event)"
-        [rowsPerPageOptions]="[10, 25, 50]"
+      [value]="erabiltzaileak"
+      [paginator]="true"
+      [rows]="10"
+      [first]="first"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [currentPageReportTemplate]="'entries-report' | translate"
+      (onPage)="pageChange($event)"
+      [rowsPerPageOptions]="[10, 25, 50]"
     >
-        <ng-template #header>
-            <tr>
-                <th>Username</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>DNI</th>
-                <th>Tipo</th>
-                <th>Argazkia</th>
-                <th>Editar</th>
-                <th *ngIf="erabiltzaileLogueatua.tipo_id != 1">Eliminar</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-erabiltzaile>
-            <tr>
-                <td>{{ erabiltzaile.username }}</td>
-                <td>{{ erabiltzaile.nombre }}</td>
-                <td>{{ erabiltzaile.apellidos }}</td>
-                <td>{{ erabiltzaile.dni }}</td>
-                <td>{{ erabiltzaile.tipo_id }}</td>
-                <td>
-                    <p-avatar
-                      [image]="erabiltzaile | argazki"
-                      size="large"
-                      shape="circle">
-                    </p-avatar>
-                  </td>
-
-                <td><p-button label="Editatu" icon="pi pi-user-edit" [raised]="true" severity="help" /></td>
-                <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
-                    <p-button label="Ezabatu" *ngIf="erabiltzaile.tipo_id != 1" icon="pi pi-trash" [raised]="true" severity="danger" />
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template #paginatorleft>
-            <p-button type="button" icon="pi pi-user-plus" label="Gehitu" variant="outlined"></p-button>
-        </ng-template>
+      <ng-template #header>
+        <tr>
+          <th>{{ 'username' | translate }}</th>
+          <th>{{ 'name' | translate }}</th>
+          <th>{{ 'surname' | translate }}</th>
+          <th>{{ 'dni' | translate }}</th>
+          <th>{{ 'type' | translate }}</th>
+          <th>{{ 'photo' | translate }}</th>
+          <th>{{ 'details' | translate }}</th>
+          <th>{{ 'edit' | translate }}</th>
+          <th *ngIf="erabiltzaileLogueatua.tipo_id != 1">{{ 'delete' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-erabiltzaile>
+        <tr>
+          <td>{{ erabiltzaile.username }}</td>
+          <td>{{ erabiltzaile.nombre }}</td>
+          <td>{{ erabiltzaile.apellidos }}</td>
+          <td>{{ erabiltzaile.dni }}</td>
+          <td>{{ erabiltzaile.tipo_id }}</td>
+          <td>
+            <p-avatar
+              [image]="erabiltzaile | argazki"
+              size="large"
+              shape="circle">
+            </p-avatar>
+          </td>
+          <td>
+            <p-button
+              [label]="'details' | translate"
+              icon="pi pi-info-circle"
+              [raised]="true"
+              severity="info"
+              (onClick)="ikusiXehetasunak(erabiltzaile)"
+            ></p-button>
+          </td>
+          <td>
+            <p-button
+              [label]="'edit' | translate"
+              icon="pi pi-user-edit"
+              [raised]="true"
+              severity="help"
+            ></p-button>
+          </td>
+          <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
+            <p-button label="Ezabatu" *ngIf="erabiltzaile.tipo_id != 1"  icon="pi pi-trash" [raised]="true" severity="danger"  (onClick)="ezabatuErabiltzaile(erabiltzaile)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #paginatorleft>
+        <p-button
+          type="button"
+          icon="pi pi-user-plus"
+          [label]="'add-user' | translate"
+          variant="outlined"
+        ></p-button>
+      </ng-template>
     </p-table>
-</div>
+  </div>

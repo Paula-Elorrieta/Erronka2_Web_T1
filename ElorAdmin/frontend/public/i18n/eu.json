@@ -6,5 +6,22 @@
     "email-placeholder": "Idatzi zure emaila",
     "password-placeholder": "Idatzi zure pasahitza",
     "username": "Erabiltzaile-izena",
-    "username-placeholder": "Idatzi zure erabiltzaile-izena"
+    "username-placeholder": "Idatzi zure erabiltzaile-izena",
+    "user-details": "Erabiltzailearen xehetasunak",
+    "name": "Izena",
+    "surname": "Abizena",
+    "dni": "NAN",
+    "address": "Helbidea",
+    "phone1": "Telefonoa 1",
+    "phone2": "Telefonoa 2",
+    "phone2-placeholder": "Ez dago eskuragarri",
+    "back-to-table": "Itzuli taula",
+    "no-image": "Irudia ez dago eskuragarri",
+    "type": "Mota",
+    "photo": "Argazkia",
+    "details": "Xehetasunak",
+    "edit": "Editatu",
+    "delete": "Ezabatu",
+    "add-user": "Gehitu erabiltzailea",
+    "entries-report": "{first} - {last} erakusten {totalRecords} sarrerak"
 }

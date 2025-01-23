@@ -16,7 +16,14 @@ export class QueryService {
     return this.http.get(`${this.apiUrl}/get-users`);
   }
 
-  
+  getErabiltzailea(id: string): Observable<User | undefined> {
+    return this.http.get<{ users: User[] }>(`${this.apiUrl}/get-users`).pipe(
+      map((response) => response.users.find((user) => user.id?.toString() == id))
+    );
+  }
+
+
+
 
 
 }

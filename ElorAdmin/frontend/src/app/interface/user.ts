@@ -9,6 +9,6 @@ export interface User {
   direccion?: string;
   telefono1?: number;
   telefono2?: number;
-  tipo_id: number;
+  tipo_id?: number;
   argazkia?: any;
 }

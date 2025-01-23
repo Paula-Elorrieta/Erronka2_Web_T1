@@ -3,7 +3,7 @@ import { TaulaErabiltzaileComponent } from "../../Components/taula-erabiltzaile/
 
 @Component({
   selector: 'app-home-admin',
-  imports: [TaulaErabiltzaileComponent],
+  imports: [TaulaErabiltzaileComponent,],
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.css'
 })

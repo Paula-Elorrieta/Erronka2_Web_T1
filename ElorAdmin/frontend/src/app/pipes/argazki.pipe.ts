@@ -12,7 +12,7 @@ export class ArgazkiPipe implements PipeTransform {
       console.log('Argazkia:', erabiltzailea.argazkia);
 
       if (erabiltzailea.argazkia.type === 'Buffer') {
-        const buffer = erabiltzailea.argazkia.data; // Asegúrate de que es un array de números
+        const buffer = erabiltzailea.argazkia.data;
 
         // Verifica que el buffer exista y sea válido
         if (Array.isArray(buffer) && buffer.length > 0) {

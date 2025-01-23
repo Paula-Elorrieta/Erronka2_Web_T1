@@ -1,43 +1,41 @@
-<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex', background: 'linear-gradient(135deg, #6e8efb, #a777e3)', 'border': '1px solid white' }" class="w-full">
+<p-megamenu [style]="{ 'border-radius': '3rem', display: 'flex', background: 'linear-gradient(135deg, #6e8efb, #a777e3)', 'border': '1px solid white' }" class="w-full">
     <ng-template #start>
         <a href="/home"><p-image src="img/logo.png" alt="logo" width="130" height="50" [style]="{'cursor': 'pointer'}"></p-image></a>
-    </ng-template>
-    <ng-template #item let-item >
-        <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
-            <i [ngClass]="item.icon"></i> 
-            <span class="text-lg font-semibold">{{ item.label }}</span>
-        </a>
-        <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2" [style]="{'cursor': 'pointer'}">
-            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12" >
-                <i [ngClass]="item.icon + ' text-lg'"></i> 
-            </span>
-            <span class="inline-flex flex-col gap-1" >
-                <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
-                <span class="whitespace-nowrap">{{ item.subtext }}</span>
-            </span>
-        </a>
-        <div *ngIf="item.image" class="flex flex-col items-start gap-4">
-            <img [src]="item.image" alt="megamenu-demo" class="w-full" />
-            <span>{{ item.subtext }}</span>
-            <p-button [label]="item.label" [outlined]="true"></p-button>
-        </div>
+        <button
+        pButton
+        label="HOME"
+        icon="pi pi-fw pi-home"
+        class="p-button-danger text-lg"
+        [style]="{
+            'background': isHovered2 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+            'border': '0px',
+            'color': 'white',
+            'font-size': '16px',
+            'transition': 'background 0.3s ease',
+        }"
+        (mouseenter)="isHovered2 = true"
+        (mouseleave)="isHovered2 = false">
+    </button>
     </ng-template>
     <ng-template #end>
-        <button 
-        pButton 
-        label="LOGOUT" 
-        icon="pi pi-fw pi-sign-out" 
-        class="p-button-danger text-lg" 
+        <button
+        pButton
+        label="LOGOUT"
+        icon="pi pi-fw pi-sign-out"
+        class="p-button-danger text-lg"
         [style]="{
-            'background': isHovered ? 'rgba(255, 255, 255, 0.2)' : 'transparent', 
-            'border': '0px', 
-            'color': 'white', 
-            'font-size': '16px', 
+            'background': isHovered ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+            'border': '0px',
+            'color': 'white',
+            'font-size': '16px',
             'transition': 'background 0.3s ease',
-        }" 
-        (mouseenter)="isHovered = true" 
-        (mouseleave)="isHovered = false" 
+        }"
+        (mouseenter)="isHovered = true"
+        (mouseleave)="isHovered = false"
         (click)="logout()">
     </button>
         </ng-template>
 </p-megamenu>
+<div class="switch-hizkuntza">
+    <app-switch-hizkuntza></app-switch-hizkuntza>
+  </div>
