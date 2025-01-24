@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador map
 import { User } from '../interface/user';
 import { Horario } from '../interface/horarios';
+import { Reunion } from '../interface/Reunion';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,10 @@ export class QueryService {
     return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios/${userId}`);
   }
 
+  getReuniones(userId: number): Observable<any[]> {
+    const url = `${this.apiUrl}/get-reuniones/${userId}`;
+    return this.http.get<any[]>(url);
+  }
 
 
 

@@ -96,6 +96,48 @@ app.get("/get-horarios/:id", (req, res) => {
   });
 });
 
+app.get("/get-reuniones/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10); 
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "El parámetro 'id' debe ser un número válido" });
+  }
+
+  const query = `
+    SELECT r.id_reunion, r.estado, r.estado_eus, r.profesor_id, r.alumno_id, r.id_centro, 
+           r.titulo, r.asunto, r.aula, r.fecha
+    FROM reuniones r
+    WHERE r.profesor_id = ? 
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error al conectarse a la base de datos:", err);
+      return res.status(500).json({ message: "Error en el servidor" });
+    }
+
+    if (results.length > 0) {
+      const reuniones = results.map(row => ({
+        id_reunion: row.id_reunion,
+        estado: row.estado,
+        estado_eus: row.estado_eus,
+        profesor_id: row.profesor_id,
+        alumno_id: row.alumno_id,
+        id_centro: row.id_centro,
+        titulo: row.titulo,
+        asunto: row.asunto,
+        aula: row.aula,
+        fecha: row.fecha
+      }));
+
+      return res.status(200).json({ message: "Reuniones obtenidas", reuniones });
+    } else {
+      return res.status(404).json({ message: "No se encontraron reuniones" });
+    }
+  });
+});
+
+
+
 
 
 
