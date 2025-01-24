@@ -72,7 +72,7 @@ app.get("/get-horarios/:id", (req, res) => {
     return res.status(400).json({ message: "El parámetro 'id' debe ser un número válido" });
   }
 
-  const query = "SELECT dia, hora, profe_id, modulo_id FROM horarios WHERE profe_id = ?";
+  const query = "SELECT h.dia, h.hora, h.profe_id, m.nombre, m.nombre_eus, m.nombre_en FROM horarios h INNER JOIN modulos m ON h.modulo_id = m.id WHERE h.profe_id = ?";
   db.query(query, [id], (err, results) => {
     if (err) {
       console.error("Error al conectarse a la base de datos:", err);
@@ -84,7 +84,9 @@ app.get("/get-horarios/:id", (req, res) => {
         dia: row.dia,
         hora: row.hora,
         profe_id: row.profe_id,
-        modulo_id: row.modulo_id,
+        modulo_izena_es: row.nombre,
+        modulo_izena_eu: row.nombre_eus,
+        modulo_izena_en : row.nombre_en
       }));
 
       return res.status(200).json({ message: "Horarios obtenidos", horarios });

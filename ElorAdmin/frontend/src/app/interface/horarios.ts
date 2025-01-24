@@ -12,12 +12,14 @@ export enum Hora {
   Three = '3',
   Four = '4',
   Five = '5',
-  Six = '6'
+
 }
 
 export interface Horario {
   dia: Dia;
   hora: Hora;
   profe_id: number;
-  modulo_id: number;
+  modulo_izena_es: string;
+  modulo_izena_eu: string;
+  modulo_izena_en: string;
 }

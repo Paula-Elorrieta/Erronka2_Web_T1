@@ -1,0 +1,34 @@
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  "
+>
+  <p-table
+    [value]="taulaOrduak | keyvalue"
+    showGridlines
+    [tableStyle]="{
+      width: '100%',
+      height: '500px',
+      textAlign: 'center',
+      zIndex: '-1'
+    }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Hora</th>
+        <th *ngFor="let eguna of egunak">{{ eguna }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{ row.key }}</td>
+        <td *ngFor="let eguna of egunak">
+          {{ row.value[eguna] || "-" }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
