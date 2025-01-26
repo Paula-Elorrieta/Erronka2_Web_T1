@@ -1,41 +1,78 @@
-<p-megamenu [style]="{ 'border-radius': '3rem', display: 'flex', background: 'linear-gradient(135deg, #6e8efb, #a777e3)', 'border': '1px solid white' }" class="w-full">
-    <ng-template #start>
-        <a href="/home"><p-image src="img/logo.png" alt="logo" width="130" height="50" [style]="{'cursor': 'pointer'}"></p-image></a>
-        <button
-        pButton
-        label="HOME"
-        icon="pi pi-fw pi-home"
-        class="p-button-danger text-lg"
-        [style]="{
-            'background': isHovered2 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-            'border': '0px',
-            'color': 'white',
-            'font-size': '16px',
-            'transition': 'background 0.3s ease',
-        }"
-        (mouseenter)="isHovered2 = true"
-        (mouseleave)="isHovered2 = false">
-    </button>
-    </ng-template>
-    <ng-template #end>
-        <button
-        pButton
-        label="LOGOUT"
-        icon="pi pi-fw pi-sign-out"
-        class="p-button-danger text-lg"
-        [style]="{
+<p-megamenu
+  [style]="{
+    'border-radius': '3rem',
+    display: 'flex',
+    background: 'linear-gradient(135deg, #6e8efb, #a777e3)',
+    border: '1px solid white'
+  }"
+  class="w-full"
+>
+<ng-template #start>
+  <p-image
+    src="img/logo.png"
+    alt="logo"
+    width="130"
+    height="50"
+    [style]="{ cursor: 'pointer' }"
+    (click)="homeBueltatu()"
+  ></p-image>
+  <button
+    pButton
+    label="HOME"
+    icon="pi pi-fw pi-home"
+    class="p-button-danger text-lg"
+    [style]="{
+          'background': isHovered2 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+          'border': '0px',
+          'color': 'white',
+          'font-size': '16px',
+          'transition': 'background 0.3s ease',
+      }"
+    (mouseenter)="isHovered2 = true"
+    (mouseleave)="isHovered2 = false"
+    (click)="homeBueltatu()"
+  ></button>
+  <button
+    pButton
+    *ngIf="userLogged.tipo_id == 3"
+    label="REUNIONES"
+    icon="pi pi-fw pi-calendar"
+    class="p-button-danger text-lg"
+    [style]="{
+      'background': isHovered3 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+      'border': '0px',
+      'color': 'white',
+      'font-size': '16px',
+      'transition': 'background 0.3s ease',
+  }"
+    (mouseenter)="isHovered3 = true"
+    (mouseleave)="isHovered3 = false"
+    (click)="bilerakIkusi()"
+  ></button>
+</ng-template>
+  <ng-template #end>
+    <button
+      pButton
+      label="LOGOUT"
+      icon="pi pi-fw pi-sign-out"
+      class="p-button-danger text-lg"
+      [style]="{
             'background': isHovered ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
             'border': '0px',
             'color': 'white',
             'font-size': '16px',
             'transition': 'background 0.3s ease',
         }"
-        (mouseenter)="isHovered = true"
-        (mouseleave)="isHovered = false"
-        (click)="logout()">
-    </button>
-        </ng-template>
+      (mouseenter)="isHovered = true"
+      (mouseleave)="isHovered = false"
+      (click)="logout()"
+    ></button>
+  </ng-template>
 </p-megamenu>
 <div class="switch-hizkuntza">
-    <app-switch-hizkuntza></app-switch-hizkuntza>
+  <app-switch-hizkuntza></app-switch-hizkuntza>
+  <div *ngIf="userLogged.tipo_id == 1 || userLogged.tipo_id == 2">
+      <h2>Ikasle kopurua:  {{ikaslekop}}</h2>
+      <h2>Bileren kopurua: </h2>
   </div>
+</div>

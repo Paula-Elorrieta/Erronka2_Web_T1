@@ -6,13 +6,13 @@ import { User } from '../../interface/user';
 import { QueryService } from '../../services/query.service';
 
 @Component({
-  selector: 'app-taula-reuniones',
+  selector: 'app-taula-bilerak',
   imports: [CommonModule, TableModule],
-  templateUrl: './taula-reuniones.component.html',
-  styleUrls: ['./taula-reuniones.component.css'],
+  templateUrl: './taula-bilerak.component.html',
+  styleUrl: './taula-bilerak.component.css'
 })
-export class TaulaReunionesComponent implements OnInit {
-  reuniones: Reunion[] = [];
+export class TaulaBilerakComponent implements OnInit {
+reuniones: Reunion[] = [];
   errorMessage: string = '';
   userlog: User = {};
 

@@ -24,22 +24,5 @@
   "delete": "Eliminar",
   "add-user": "Añadir Usuario",
   "entries-report": "Mostrando {first} a {last} de {totalRecords} entradas",
-  "L/A": "Lunes",
-  "M/A": "Martes",
-  "X": "Miércoles",
-  "J/O": "Jueves",
-  "V/O": "Viernes",
-  "Tutoria": "Tutoría",
-  "Guardia": "Guardia",
-  "Sistemas Informaticos": "Sistemas Informáticos",
-  "Bases de datos": "Bases de Datos",
-  "Programación": "Programación",
-  "Lenguajes de marcas": "Lenguajes de Marcas",
-  "Entornos de desarrollo": "Entornos de Desarrollo",
-  "Acceso a datos": "Acceso a Datos",
-  "Desarrollo de interfaces": "Desarrollo de Interfaces",
-  "Programación multimedia y dispositivos móviles": "Programación Multimedia y Dispositivos Móviles",
-  "Programación de servicios y procesos": "Programación de Servicios y Procesos",
-  "Sistemas de gestión empresarial": "Sistemas de Gestión Empresarial",
-  "Empresa e Iniciativa Emprendedora": "Empresa e Iniciativa Emprendedora"
+  "hour": "Hora"
 }

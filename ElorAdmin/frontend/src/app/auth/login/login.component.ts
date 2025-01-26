@@ -30,7 +30,6 @@ export class LoginComponent {
 
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
-        console.log('Login ondo:', response);
         const user = response.user;
         localStorage.setItem('user', JSON.stringify(user));
 

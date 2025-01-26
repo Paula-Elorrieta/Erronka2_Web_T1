@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { QueryService } from '../../services/query.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { User } from '../../interface/user';
 import { Dia, Hora, Horario } from '../../interface/horarios';
 import { TableModule } from 'primeng/table';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-taula-ordutegi',
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule, TranslateModule],
   templateUrl: './taula-ordutegi.component.html',
   styleUrl: './taula-ordutegi.component.css',
 })

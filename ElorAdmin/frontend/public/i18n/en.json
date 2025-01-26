@@ -24,22 +24,5 @@
     "delete": "Delete",
     "add-user": "Add User",
     "entries-report": "Showing {first} to {last} of {totalRecords} entries",
-    "L/A": "Monday",
-    "M/A": "Tuesday",
-    "X": "Wednesday",
-    "J/O": "Thursday",
-    "V/O": "Friday",
-    "Tutoria": "Tutoring",
-    "Guardia": "Guard duty",
-    "Sistemas Informaticos": "Computer Systems",
-    "Bases de datos": "Databases",
-    "Programación": "Programming",
-    "Lenguajes de marcas": "Markup Languages",
-    "Entornos de desarrollo": "Development Environments",
-    "Acceso a datos": "Data Access",
-    "Desarrollo de interfaces": "Interface Development",
-    "Programación multimedia y dispositivos móviles": "Multimedia Programming and Mobile Devices",
-    "Programación de servicios y procesos": "Services and Processes Programming",
-    "Sistemas de gestión empresarial": "Business Management Systems",
-    "Empresa e Iniciativa Emprendedora": "Business and Entrepreneurial Initiative"
+    "hour": "Hour"
 }
