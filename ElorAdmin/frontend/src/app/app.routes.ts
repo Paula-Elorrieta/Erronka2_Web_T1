@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { DetailsComponent } from './users/details/details.component';
 import { BileraOrriaComponent } from './pages/bilera-orria/bilera-orria.component';
+import { BilerenDetailsComponent } from './pages/bileren-details/bileren-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -34,7 +35,10 @@ export const routes: Routes = [
   {
     path: 'pages',
     canActivate: [AuthGuard],
-    children: [{ path: 'bilerak', component: BileraOrriaComponent }],
+    children: [
+      { path: 'bilerak', component: BileraOrriaComponent },
+      { path: 'details/:id', component: BilerenDetailsComponent },
+    ],
   },
 
   {

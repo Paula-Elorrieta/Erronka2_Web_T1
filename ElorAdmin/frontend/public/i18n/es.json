@@ -24,5 +24,13 @@
   "delete": "Eliminar",
   "add-user": "Añadir Usuario",
   "entries-report": "Mostrando {first} a {last} de {totalRecords} entradas",
-  "hour": "Hora"
+  "hour": "Hora",
+  "nomeeting": "No se encontraron reuniones",
+  "title": "Título",
+  "subject": "Asunto",
+  "status": "Estado",
+  "classroom": "Aula",
+  "date": "Fecha"  
 }
+
+

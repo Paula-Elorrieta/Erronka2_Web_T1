@@ -24,5 +24,11 @@
     "delete": "Ezabatu",
     "add-user": "Gehitu erabiltzailea",
     "entries-report": "{first} - {last} erakusten {totalRecords} sarrerak",
-    "hour": "Ordua"
+    "hour": "Ordua",
+    "nomeeting" : "Ez dira bilerak aurkitu",
+    "title": "Titulua",
+    "subject": "Asuntoa",
+    "status": "Egoera",
+    "classroom": "Gela",
+    "date": "Data"
 }

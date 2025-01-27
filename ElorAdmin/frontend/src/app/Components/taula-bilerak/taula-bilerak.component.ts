@@ -1,22 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Reunion } from '../../interface/reuniones';
 import { User } from '../../interface/user';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { QueryService } from '../../services/query.service';
+import { ButtonModule } from 'primeng/button';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-taula-bilerak',
-  imports: [CommonModule, TableModule],
+  standalone: true,
+  imports: [CommonModule, TableModule, TranslateModule, ButtonModule],
   templateUrl: './taula-bilerak.component.html',
-  styleUrl: './taula-bilerak.component.css'
+  styleUrls: ['./taula-bilerak.component.css'],
 })
 export class TaulaBilerakComponent implements OnInit {
-reuniones: Reunion[] = [];
+  reuniones: Reunion[] = [];
   errorMessage: string = '';
   userlog: User = {};
+  translateSubs: Subscription | undefined;
 
-  constructor(private queryService: QueryService) {}
+  constructor(
+    private translateService: TranslateService,
+    private queryService: QueryService,
+    private router: Router
+  ) {
+    this.translateService.setDefaultLang('eu');
+    this.translateService.use('eu');
+  }
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user');
@@ -24,25 +37,48 @@ reuniones: Reunion[] = [];
       this.userlog = JSON.parse(storedUser);
       this.reunionesHartu();
     }
+
+    // Hau da hizkuntza aldatzean eguneratzeko. Begiratzen du zein hizkuntza aldatzeko.
+    this.translateSubs = this.translateService.onLangChange.subscribe(() => {
+      this.eguneratuHizkuntza();
+    });
   }
+
   reunionesHartu() {
     const userId = Number(this.userlog.id);
-    if (isNaN(userId)) {
-      console.error('El ID del usuario no es válido');
-      return;
-    }
 
-    this.queryService.getReuniones(userId).subscribe({
+    this.queryService.getReuniones().subscribe({
       next: (data: any) => {
-        console.log('Reuniones obtenidas:', data);
-        if (data && Array.isArray(data.reuniones)) {
-          this.reuniones = data.reuniones;
-        }
+        this.reuniones = data.reuniones.filter(
+          (reunion: Reunion) => reunion.profesor_id === userId
+        );
+
+        this.eguneratuHizkuntza();
       },
       error: (err) => {
         this.errorMessage = 'Error al cargar las reuniones';
-        console.error('Error al cargar reuniones:', err);
       },
     });
+  }
+
+  eguneratuHizkuntza() {
+    const currentHizkuntza = this.translateService.currentLang;
+    this.reuniones.forEach((reunion) => {
+      reunion.estado = this.traducirEstado(reunion, currentHizkuntza);
+    });
+  }
+
+  traducirEstado(reunion: Reunion, idioma: string): string {
+    if (idioma === 'eu') {
+      return reunion.estado_eus || ''; 
+    } else if (idioma === 'en') {
+      return reunion.estado_en || ''; 
+    } else {
+      return reunion.estado_es || ''; 
+    }
+  }
+
+  ikusiXehetasunak(reunion: Reunion) {
+    this.router.navigate(['/pages/details', reunion.id_reunion]);
   }
 }

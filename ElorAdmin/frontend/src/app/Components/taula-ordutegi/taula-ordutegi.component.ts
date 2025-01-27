@@ -74,7 +74,6 @@ export class TaulaOrdutegiComponent {
     });
   }
 
-  // Función para alternar entre los tres campos según el idioma
   datuElkatu(horarios: Horario[]) {
     const tabla: { [key in Hora]: { [key in Dia]?: string } } = {
       '1': {},
@@ -90,7 +89,6 @@ export class TaulaOrdutegiComponent {
       const hora = horario.hora as Hora;
       const dia = horario.dia as Dia;
 
-      // Modulo izena hizkuntza bakoitzaren arabera
       let modulo: string;
       if (idioma === 'eu') {
         modulo = horario.modulo_izena_eu;

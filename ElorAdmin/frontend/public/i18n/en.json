@@ -24,5 +24,12 @@
     "delete": "Delete",
     "add-user": "Add User",
     "entries-report": "Showing {first} to {last} of {totalRecords} entries",
-    "hour": "Hour"
+    "hour": "Hour",
+    "nomeeting" : "No Meeting Found",
+    "title": "Title",
+    "subject": "Subject",
+    "status": "Status",
+    "classroom": "Classroom",
+    "date": "Date"
+    
 }

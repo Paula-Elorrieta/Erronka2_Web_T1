@@ -19,36 +19,36 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Estado</th>
-        <th>Estado (Euskera)</th>
-        <th>Profesor ID</th>
-        <th>Alumno ID</th>
-        <th>Título</th>
-        <th>Asunto</th>
-        <th>Aula</th>
-        <th>Fecha</th>
+        <th>{{'title' | translate}}</th>
+        <th>{{'subject' | translate}}</th>
+        <th>{{'status' | translate}}</th>
+        <th>{{'classroom' | translate}}</th>
+        <th>{{'date' | translate}}</th>
+        <th>{{'details' | translate}}</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-reunion>
       <tr>
-        <td>{{ reunion.estado }}</td>
-        <td>{{ reunion.estado_eus }}</td>
-        <td>{{ reunion.profesor_id }}</td>
-        <td>{{ reunion.alumno_id }}</td>
         <td>{{ reunion.titulo }}</td>
         <td>{{ reunion.asunto }}</td>
+        <td>{{ reunion.estado }}</td>
         <td>{{ reunion.aula }}</td>
         <td>{{ reunion.fecha | date : "short" }}</td>
+        <td>
+          <p-button
+            [label]="'details' | translate"
+            icon="pi pi-info-circle"
+            [raised]="true"
+            severity="info"
+            (click)="ikusiXehetasunak(reunion)"
+          ></p-button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="reuniones.length === 0 && !errorMessage" class="alert alert-info">
-    No se han encontrado reuniones para mostrar.
+  <div *ngIf="reuniones.length == 0 && !errorMessage">
+    <h1>{{'nomeeting' | translate}}</h1>
   </div>
 </div>

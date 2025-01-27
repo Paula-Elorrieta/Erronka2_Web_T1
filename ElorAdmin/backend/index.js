@@ -96,20 +96,11 @@ app.get("/get-horarios/:id", (req, res) => {
   });
 });
 
-app.get("/get-reuniones/:id", (req, res) => {
-  const id = parseInt(req.params.id, 10); 
-  if (isNaN(id)) {
-    return res.status(400).json({ message: "El parámetro 'id' debe ser un número válido" });
-  }
+app.get("/get-reuniones", (req, res) => {
 
-  const query = `
-    SELECT r.id_reunion, r.estado, r.estado_eus, r.profesor_id, r.alumno_id, r.id_centro, 
-           r.titulo, r.asunto, r.aula, r.fecha
-    FROM reuniones r
-    WHERE r.profesor_id = ? 
-  `;
+  const query = "SELECT * FROM reuniones r";
 
-  db.query(query, [id], (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       console.error("Error al conectarse a la base de datos:", err);
       return res.status(500).json({ message: "Error en el servidor" });
@@ -118,8 +109,9 @@ app.get("/get-reuniones/:id", (req, res) => {
     if (results.length > 0) {
       const reuniones = results.map(row => ({
         id_reunion: row.id_reunion,
-        estado: row.estado,
+        estado_es: row.estado,
         estado_eus: row.estado_eus,
+        estado_en : row.estado_en,
         profesor_id: row.profesor_id,
         alumno_id: row.alumno_id,
         id_centro: row.id_centro,

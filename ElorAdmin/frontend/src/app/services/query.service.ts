@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // Importa el operador map
+import { map } from 'rxjs/operators';
 import { Horario } from '../interface/horarios';
 import { User } from '../interface/user';
 import { Reunion } from '../interface/reuniones';
@@ -10,10 +10,11 @@ import { Reunion } from '../interface/reuniones';
   providedIn: 'root',
 })
 export class QueryService {
+  // Mysql url
   private apiUrl = 'http://localhost:3001';
 
   constructor(private http: HttpClient) {}
-  erabiltzaileArray : User[] = [];
+  erabiltzaileArray: User[] = [];
 
   getErabiltzaileakEtaMezua(): Observable<any> {
     return this.http.get(`${this.apiUrl}/get-users`);
@@ -33,9 +34,20 @@ export class QueryService {
     return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios/${userId}`);
   }
 
-  getReuniones(userId: number): Observable<Reunion[]> {
-    const url = `${this.apiUrl}/get-reuniones/${userId}`;
+  getReuniones(): Observable<Reunion[]> {
+    const url = `${this.apiUrl}/get-reuniones`;
     return this.http.get<any[]>(url);
   }
 
+  getReunion(id: string): Observable<Reunion | undefined> {
+    return this.http
+      .get<{ reuniones: Reunion[] }>(`${this.apiUrl}/get-reuniones`)
+      .pipe(
+        map((response) =>
+          response.reuniones.find(
+            (reunion) => reunion.id_reunion?.toString() == id
+          )
+        )
+      );
+  }
 }

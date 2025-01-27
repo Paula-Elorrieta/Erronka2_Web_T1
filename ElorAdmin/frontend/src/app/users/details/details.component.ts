@@ -32,7 +32,6 @@ export class DetailsComponent implements OnInit {
   user: User = {};
 
   constructor(
-    private route: ActivatedRoute,
     private queryS: QueryService,
     private activatedRoute: ActivatedRoute,
     private translateService: TranslateService,
