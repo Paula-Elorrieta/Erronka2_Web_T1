@@ -5,10 +5,11 @@ import { TableModule } from 'primeng/table';
 import { User } from '../../interface/user';
 import { FormsModule } from '@angular/forms';
 import { TaulaOrdutegiComponent } from "../../Components/taula-ordutegi/taula-ordutegi.component";
+import { DetailsComponent } from "../../teachers/details/details.component";
 
 @Component({
   selector: 'app-home-irakasle',
-  imports: [CommonModule, TableModule, FormsModule, TaulaOrdutegiComponent],
+  imports: [CommonModule, TableModule, FormsModule, TaulaOrdutegiComponent, DetailsComponent],
   standalone: true,
   templateUrl: './home-irakasle.component.html',
   styleUrl: './home-irakasle.component.css',
