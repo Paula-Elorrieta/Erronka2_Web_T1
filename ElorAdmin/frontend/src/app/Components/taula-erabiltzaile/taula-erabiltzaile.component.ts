@@ -40,6 +40,7 @@ export class TaulaErabiltzaileComponent implements OnInit {
   rows: number = 10;
   selectedUser!: User;
   displayDeleteDialog: boolean = false; // Declaración de la propiedad para mostrar el diálogo
+  reunionesCount: number = 0;
 
   constructor(
     private queryS: QueryService,
@@ -60,11 +61,21 @@ export class TaulaErabiltzaileComponent implements OnInit {
         console.log('Erabiltzaileak lortu dira:', response);
         this.erabiltzaileak = response.users;
         console.log(this.erabiltzaileak);
+
+        let ikasleCop = 0;
+        this.erabiltzaileak.forEach( erabiltzaile => {
+          if (erabiltzaile.tipo_id === 4) {
+            ikasleCop++;
+          }
+        });
+        this.queryS.setErabiltzaileCount(ikasleCop  );
       },
       (error) => {
         console.error('Errorea erabiltzaileak kargatzean:', error);
       }
     );
+
+    
   }
 
   next() {
@@ -119,5 +130,13 @@ export class TaulaErabiltzaileComponent implements OnInit {
         // this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'Eliminación cancelada' });
       },
     });
+  }
+
+  gehituErabiltzaile() {
+    this.router.navigate(['/users/gehitu']);
+  }
+
+  editatuErabiltzaile(user: User) {
+    this.router.navigate(['/users/editatu', user.id]);
   }
 }

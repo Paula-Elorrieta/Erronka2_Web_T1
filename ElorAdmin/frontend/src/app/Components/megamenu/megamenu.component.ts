@@ -30,11 +30,19 @@ export class MegamenuComponent {
   isHovered: boolean = false;
   isHovered2: boolean = false;
   isHovered3: boolean = false;
+  isHovered4: boolean = false;
+  ikasleKop: number = 0;
   userLogged: User = JSON.parse(localStorage.getItem('user') || '{}');
   erabiltzaileak: User[] = [];
+  reunionesCount: number = 0;
 
   constructor(private router: Router, private query: QueryService) {
     console.log(this.userLogged.tipo_id);
+  }
+
+  ngOnInit() {
+    this.ikasleKop = this.getikaslekop();
+    this.getBileraKop();
   }
 
   logout() {
@@ -44,6 +52,10 @@ export class MegamenuComponent {
 
   bilerakIkusi() {
     this.router.navigate(['/pages/bilerak']);
+  }
+
+  ordutegiaIkusi() {
+    this.router.navigate(['/pages/ordutegi']);
   }
 
   homeBueltatu() {
@@ -56,20 +68,39 @@ export class MegamenuComponent {
     }
   }
 
-  get ikaslekop() {
-    let ikasleKop = 0;
-    this.query.getErabiltzaileakEtaMezua().subscribe((response) => {
-      console.log('Erabiltzaileak lortu dira:', response);
-      this.erabiltzaileak = response.users;
-      console.log(this.erabiltzaileak);
-    });
+  getikaslekop() {
+    let ikasleCop = 0;/*
+    this.query.getErabiltzaileakEtaMezua().subscribe(
+      (response) => {
+        console.log('Erabiltzaileak lortu dira:', response);
+        this.erabiltzaileak = response.users;
+        console.log(this.erabiltzaileak);
 
-    ikasleKop = this.erabiltzaileak.filter(
-      (erabiltzaile) => erabiltzaile.tipo_id === 4
-    ).length;
+        
+        this.erabiltzaileak.forEach( erabiltzaile => {
+          if (erabiltzaile.tipo_id === 4) {
+            ikasleCop++;
+          }
+        });
+        this.query.setErabiltzaileCount(ikasleCop);
+      },
+      (error) => {
+        console.error('Errorea erabiltzaileak kargatzean:', error);
+      }
+    );*/
 
-    return ikasleKop;
+    return ikasleCop;
   }
 
+  getBileraKop() {/*
+  this.query.getReuniones().subscribe(
+    (response) => {
+      this.reunionesCount = response.length;  
+    },
+    (error) => {
+      console.error('Errorea bilerak kargatzean:', error);
+    }
+  );*/
+  }
 
 }

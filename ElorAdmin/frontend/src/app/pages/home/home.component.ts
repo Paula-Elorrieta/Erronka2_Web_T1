@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { HomeAdminComponent } from '../home-admin/home-admin.component';
 import { HomeIkasleComponent } from "../home-ikasle/home-ikasle.component";
 import { HomeIrakasleComponent } from "../home-irakasle/home-irakasle.component";
+import { QueryService } from '../../services/query.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   userLogged: any;
 
-  constructor(private auth : AuthService, private translateService: TranslateService) {
+  constructor(private auth : AuthService, private translateService: TranslateService, private query : QueryService) {
     this.translateService.setDefaultLang('eu');
     this.translateService.use('eu');
   }
@@ -25,6 +26,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.userLogged = this.auth.getErabiltzaileLogueatua();
     console.log('Usuario logueado:', this.userLogged);
+    this.query.updateIkastetxeak().subscribe(
+      (response) => {
+        this.query.setIkastetxeak(response);
+      },
+      (error) => {
+        console.error('Errorea ikastetxeak kargatzean:', error);
+      }
+    );
   }
 
 }

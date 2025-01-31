@@ -49,6 +49,23 @@
     (mouseleave)="isHovered3 = false"
     (click)="bilerakIkusi()"
   ></button>
+  <button
+    pButton
+    *ngIf="userLogged.tipo_id == 3 || userLogged.tipo_id == 4"
+    label="HORARIOS"
+    icon="pi pi-fw pi-calendar"
+    class="p-button-danger text-lg"
+    [style]="{
+      'background': isHovered4 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+      'border': '0px',
+      'color': 'white',
+      'font-size': '16px',
+      'transition': 'background 0.3s ease',
+  }"
+    (mouseenter)="isHovered4 = true"
+    (mouseleave)="isHovered4 = false"
+    (click)="ordutegiaIkusi()"
+  ></button>
 </ng-template>
   <ng-template #end>
     <button
@@ -72,7 +89,7 @@
 <div class="switch-hizkuntza">
   <app-switch-hizkuntza></app-switch-hizkuntza>
   <div *ngIf="userLogged.tipo_id == 1 || userLogged.tipo_id == 2">
-      <h2>Ikasle kopurua:  {{ikaslekop}}</h2>
-      <h2>Bileren kopurua: </h2>
+      <h2>Ikasle kopurua:  {{ikasleKop}}</h2>
+      <h2>Bileren kopurua: {{reunionesCount}}</h2>
   </div>
 </div>

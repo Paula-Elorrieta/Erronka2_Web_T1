@@ -1,0 +1,43 @@
+<h1>{{ "user-details" | translate }}</h1>
+<div class="user-details-container">
+  <div class="user-photo">
+    <p-avatar [image]="user | argazki" size="xlarge"></p-avatar>
+  </div>
+  <div class="user-info">
+    <h2 class="user-name">
+     {{ user.nombre }} {{ user.apellidos }}
+    </h2>
+    <ul class="user-details-list">
+      <li>
+        <i class="pi pi-at"></i> <strong>{{ "email" | translate }}:</strong>
+        {{ user.email }}
+      </li>
+      <li>
+        <i class="pi pi-id-card"></i> <strong>{{ "dni" | translate }}:</strong>
+        {{ user.dni }}
+      </li>
+      <li>
+        <i class="pi pi-map-marker"></i>
+        <strong>{{ "address" | translate }}:</strong>
+        {{ user.direccion }}
+      </li>
+      <li>
+        <i class="pi pi-phone"></i> <strong>{{ "phone1" | translate }}:</strong>
+        {{ user.telefono1 }}
+      </li>
+      <li>
+        <i class="pi pi-phone"></i> <strong>{{ "phone2" | translate }}:</strong>
+        {{ user.telefono2 || ("phone2-placeholder" | translate) }}
+      </li>
+    </ul>
+
+    <div *ngIf="user.tipo_id === 1 || user.tipo_id === 2" class="user-actions">
+      <p-button
+      [label]="'back-to-table' | translate"
+      icon="pi pi-arrow-left"
+      [styleClass]="'p-button-secondary'"
+      (onClick)="atzera()"
+      ></p-button>
+    </div>
+  </div>
+</div>

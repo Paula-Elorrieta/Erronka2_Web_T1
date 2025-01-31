@@ -46,13 +46,12 @@ export class TaulaBilerakComponent implements OnInit {
 
   reunionesHartu() {
     const userId = Number(this.userlog.id);
-
+  
     this.queryService.getReuniones().subscribe({
       next: (data: any) => {
-        this.reuniones = data.reuniones.filter(
-          (reunion: Reunion) => reunion.profesor_id === userId
+        this.reuniones = data.reuniones.filter((reunion: Reunion) =>
+          this.userlog.tipo_id === 3 ? reunion.profesor_id === userId : reunion.alumno_id === userId
         );
-
         this.eguneratuHizkuntza();
       },
       error: (err) => {

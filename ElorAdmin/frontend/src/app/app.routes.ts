@@ -9,6 +9,8 @@ import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { DetailsComponent } from './users/details/details.component';
 import { BileraOrriaComponent } from './pages/bilera-orria/bilera-orria.component';
 import { BilerenDetailsComponent } from './pages/bileren-details/bileren-details.component';
+import { OrdutegiOrriaComponent } from './pages/ordutegi-orria/ordutegi-orria.component';
+import { GehituEditatuOrriaComponent } from './pages/gehitu-editatu-orria/gehitu-editatu-orria.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -38,13 +40,18 @@ export const routes: Routes = [
     children: [
       { path: 'bilerak', component: BileraOrriaComponent },
       { path: 'details/:id', component: BilerenDetailsComponent },
+      { path: 'ordutegi', component: OrdutegiOrriaComponent },
     ],
   },
 
   {
     path: 'users',
     canActivate: [AuthGuard],
-    children: [{ path: 'details/:id', component: DetailsComponent }],
+    children: [
+      { path: 'details/:id', component: DetailsComponent },
+      { path: 'gehitu', component: GehituEditatuOrriaComponent },
+      { path: 'editatu/:id', component: GehituEditatuOrriaComponent },
+    ],
   },
 
   { path: '404', component: ErrorPageComponent },

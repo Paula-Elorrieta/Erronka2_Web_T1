@@ -53,6 +53,7 @@
               icon="pi pi-user-edit"
               [raised]="true"
               severity="help"
+              (onClick)="editatuErabiltzaile(erabiltzaile)"
             ></p-button>
           </td>
           <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
@@ -66,6 +67,7 @@
           icon="pi pi-user-plus"
           [label]="'add-user' | translate"
           variant="outlined"
+          (onClick)="gehituErabiltzaile()"
         ></p-button>
       </ng-template>
     </p-table>

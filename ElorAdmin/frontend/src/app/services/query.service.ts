@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { Horario } from '../interface/horarios';
 import { User } from '../interface/user';
 import { Reunion } from '../interface/reuniones';
+import { Ikastetxeak } from '../interface/ikastetzeak';
+import { Ciclo, Ciclos } from '../interface/cliclos';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,37 @@ import { Reunion } from '../interface/reuniones';
 export class QueryService {
   // Mysql url
   private apiUrl = 'http://localhost:3001';
+  private jsUrl = 'http://localhost:3000/IKASTETXEAK';
+  private erabiltzaileCount = 0; // Ikasleak
+  private ikastetzeak: Ikastetxeak[] = [];
+
+  getIkastetxea(id: string): Ikastetxeak {
+    const ikastetxea = this.ikastetzeak.find((ikastetxea) => ikastetxea.CCEN.toString() == id);
+    if (!ikastetxea) {
+      throw new Error(`Ikastetxea with id ${id} not found`);
+    }
+    return ikastetxea;
+  }
+
+  getIkastetxeak(): Ikastetxeak[] {
+    return this.ikastetzeak;
+  }
+
+  setIkastetxeak(ikastetxeak: Ikastetxeak[]): void {
+    this.ikastetzeak = ikastetxeak;
+  }
+
+  updateIkastetxeak(): Observable<any> {
+    return this.http.get(`${this.jsUrl}`);
+  }
+
+  getErabiltzaileCount(): number {
+    return this.erabiltzaileCount;
+  }
+
+  setErabiltzaileCount(count: number): void {
+    this.erabiltzaileCount = count;
+  }
 
   constructor(private http: HttpClient) {}
   erabiltzaileArray: User[] = [];
@@ -28,6 +61,15 @@ export class QueryService {
           response.users.find((user) => user.id?.toString() == id)
         )
       );
+  }
+
+  updateErabiltzailea(user: User): Observable<any> {
+    console.log('User:', user);
+    return this.http.put<User>(`${this.apiUrl}/update-user`, user);
+  }
+
+  addErabiltzailea(user: User): Observable<any> {
+    return this.http.post<User>(`${this.apiUrl}/add-user`, user);
   }
 
   getHorarios(userId: number): Observable<Horario[]> {
@@ -49,5 +91,9 @@ export class QueryService {
           )
         )
       );
+  }
+
+  getCiclos(): Observable<Ciclos> {
+    return this.http.get<Ciclos>(`${this.apiUrl}/get-ciclos`);
   }
 }
