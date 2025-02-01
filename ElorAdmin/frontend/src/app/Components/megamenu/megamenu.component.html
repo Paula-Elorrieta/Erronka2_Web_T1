@@ -7,70 +7,70 @@
   }"
   class="w-full"
 >
-<ng-template #start>
-  <p-image
-    src="img/logo.png"
-    alt="logo"
-    width="130"
-    height="50"
-    [style]="{ cursor: 'pointer' }"
-    (click)="homeBueltatu()"
-  ></p-image>
-  <button
-    pButton
-    label="HOME"
-    icon="pi pi-fw pi-home"
-    class="p-button-danger text-lg"
-    [style]="{
+  <ng-template #start>
+    <p-image
+      src="img/logo.png"
+      alt="logo"
+      width="130"
+      height="50"
+      [style]="{ cursor: 'pointer' }"
+      (click)="homeBueltatu()"
+    ></p-image>
+    <button
+      pButton
+      [label]="'HOME' | translate"
+      icon="pi pi-fw pi-home"
+      class="p-button-danger text-lg"
+      [style]="{
           'background': isHovered2 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
           'border': '0px',
           'color': 'white',
           'font-size': '16px',
           'transition': 'background 0.3s ease',
       }"
-    (mouseenter)="isHovered2 = true"
-    (mouseleave)="isHovered2 = false"
-    (click)="homeBueltatu()"
-  ></button>
-  <button
-    pButton
-    *ngIf="userLogged.tipo_id == 3"
-    label="REUNIONES"
-    icon="pi pi-fw pi-calendar"
-    class="p-button-danger text-lg"
-    [style]="{
+      (mouseenter)="isHovered2 = true"
+      (mouseleave)="isHovered2 = false"
+      (click)="homeBueltatu()"
+    ></button>
+    <button
+      pButton
+      *ngIf="userLogged.tipo_id == 3 || userLogged.tipo_id == 4"
+      [label]="'MEETINGS' | translate"
+      icon="pi pi-fw pi-calendar"
+      class="p-button-danger text-lg"
+      [style]="{
       'background': isHovered3 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
       'border': '0px',
       'color': 'white',
       'font-size': '16px',
       'transition': 'background 0.3s ease',
   }"
-    (mouseenter)="isHovered3 = true"
-    (mouseleave)="isHovered3 = false"
-    (click)="bilerakIkusi()"
-  ></button>
-  <button
-    pButton
-    *ngIf="userLogged.tipo_id == 3 || userLogged.tipo_id == 4"
-    label="HORARIOS"
-    icon="pi pi-fw pi-calendar"
-    class="p-button-danger text-lg"
-    [style]="{
+      (mouseenter)="isHovered3 = true"
+      (mouseleave)="isHovered3 = false"
+      (click)="bilerakIkusi()"
+    ></button>
+    <button
+      pButton
+      *ngIf="userLogged.tipo_id == 3 || userLogged.tipo_id == 4"
+      [label]="'SCHEDULE' | translate"
+      icon="pi pi-fw pi-calendar"
+      class="p-button-danger text-lg"
+      [style]="{
       'background': isHovered4 ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
       'border': '0px',
       'color': 'white',
       'font-size': '16px',
       'transition': 'background 0.3s ease',
   }"
-    (mouseenter)="isHovered4 = true"
-    (mouseleave)="isHovered4 = false"
-    (click)="ordutegiaIkusi()"
-  ></button>
-</ng-template>
+      (mouseenter)="isHovered4 = true"
+      (mouseleave)="isHovered4 = false"
+      (click)="ordutegiaIkusi()"
+    ></button>
+  </ng-template>
   <ng-template #end>
     <button
       pButton
-      label="LOGOUT"
+      [label]="'LOGOUT' | translate"
       icon="pi pi-fw pi-sign-out"
       class="p-button-danger text-lg"
       [style]="{
@@ -89,7 +89,7 @@
 <div class="switch-hizkuntza">
   <app-switch-hizkuntza></app-switch-hizkuntza>
   <div *ngIf="userLogged.tipo_id == 1 || userLogged.tipo_id == 2">
-      <h2>Ikasle kopurua:  {{ikasleKop}}</h2>
-      <h2>Bileren kopurua: {{reunionesCount}}</h2>
+    <h2>Ikasle kopurua: {{ ikasleKop }}</h2>
+    <h2>Bileren kopurua: {{ reunionesCount }}</h2>
   </div>
 </div>

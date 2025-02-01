@@ -42,10 +42,12 @@ app.post("/login", (req, res) => {
 
     if (results.length > 0) {
       const user = results[0];
-      
+
       return res.status(200).json({ message: "Login ondo", user: user });
     } else {
-      return res.status(401).json({ message: "Erabiltzailea edo pasahitz okerra" });
+      return res
+        .status(401)
+        .json({ message: "Erabiltzailea edo pasahitz okerra" });
     }
   });
 });
@@ -59,7 +61,9 @@ app.get("/get-users", (req, res) => {
     }
 
     if (results.length > 0) {
-      return res.status(200).json({ message: "Erabiltzaileak lortu dira", users: results });
+      return res
+        .status(200)
+        .json({ message: "Erabiltzaileak lortu dira", users: results });
     } else {
       return res.status(404).json({ message: "Erabiltzaileak ez dira lortu" });
     }
@@ -67,26 +71,73 @@ app.get("/get-users", (req, res) => {
 });
 
 app.get("/get-horarios/:id", (req, res) => {
-  const id = parseInt(req.params.id, 10); 
+  const id = parseInt(req.params.id, 10);
   if (isNaN(id)) {
-    return res.status(400).json({ message: "El parámetro 'id' debe ser un número válido" });
+    return res.status(400).json({ message: "'Id parametroa ez da balidoa'" });
   }
 
-  const query = "SELECT h.dia, h.hora, h.profe_id, m.nombre, m.nombre_eus, m.nombre_en FROM horarios h INNER JOIN modulos m ON h.modulo_id = m.id WHERE h.profe_id = ?";
+  const query =
+    "SELECT h.dia, h.hora, h.profe_id, m.nombre, m.nombre_eus, m.nombre_en FROM horarios h INNER JOIN modulos m ON h.modulo_id = m.id WHERE h.profe_id = ?";
   db.query(query, [id], (err, results) => {
     if (err) {
-      console.error("Error al conectarse a la base de datos:", err);
-      return res.status(500).json({ message: "Error en el servidor" });
+      console.error("Error datubasera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
     }
 
     if (results.length > 0) {
-      const horarios = results.map(row => ({
+      const horarios = results.map((row) => ({
         dia: row.dia,
         hora: row.hora,
         profe_id: row.profe_id,
         modulo_izena_es: row.nombre,
         modulo_izena_eu: row.nombre_eus,
-        modulo_izena_en : row.nombre_en
+        modulo_izena_en: row.nombre_en,
+      }));
+
+      return res.status(200).json({ message: "Horarios obtenidos", horarios });
+    } else {
+      return res.status(404).json({ message: "No se encontraron horarios" });
+    }
+  });
+});
+
+app.get("/get-horarios-alumnos/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "'Id parametroa ez da balidoa'" });
+  }
+
+  const query = `
+    SELECT
+      h.dia,
+      h.hora,
+      h.profe_id,
+      MIN(m.nombre) AS nombre,
+      m.nombre_eus,
+      m.nombre_en
+    FROM horarios h
+    JOIN modulos m ON h.modulo_id = m.id
+    JOIN ciclos c ON m.ciclo_id = c.id
+    JOIN matriculaciones mtr ON mtr.ciclo_id = c.id
+    JOIN users u ON mtr.alum_id = u.id
+    WHERE mtr.alum_id = ?
+    GROUP BY h.dia, h.hora, h.profe_id, c.nombre, u.username;
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error datubasera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
+    }
+
+    if (results.length > 0) {
+      const horarios = results.map((row) => ({
+        dia: row.dia,
+        hora: row.hora,
+        profe_id: row.profe_id,
+        modulo_izena_es: row.nombre,
+        modulo_izena_eu: row.nombre_eus,
+        modulo_izena_en: row.nombre_en,
       }));
 
       return res.status(200).json({ message: "Horarios obtenidos", horarios });
@@ -97,41 +148,37 @@ app.get("/get-horarios/:id", (req, res) => {
 });
 
 app.get("/get-reuniones", (req, res) => {
-
   const query = "SELECT * FROM reuniones r";
 
   db.query(query, (err, results) => {
     if (err) {
-      console.error("Error al conectarse a la base de datos:", err);
-      return res.status(500).json({ message: "Error en el servidor" });
+      console.error("Error datubasera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
     }
 
     if (results.length > 0) {
-      const reuniones = results.map(row => ({
+      const reuniones = results.map((row) => ({
         id_reunion: row.id_reunion,
         estado_es: row.estado,
         estado_eus: row.estado_eus,
-        estado_en : row.estado_en,
+        estado_en: row.estado_en,
         profesor_id: row.profesor_id,
         alumno_id: row.alumno_id,
         id_centro: row.id_centro,
         titulo: row.titulo,
         asunto: row.asunto,
         aula: row.aula,
-        fecha: row.fecha
+        fecha: row.fecha,
       }));
 
-      return res.status(200).json({ message: "Reuniones obtenidas", reuniones });
+      return res
+        .status(200)
+        .json({ message: "Reuniones obtenidas", reuniones });
     } else {
       return res.status(404).json({ message: "No se encontraron reuniones" });
     }
   });
 });
-
-
-
-
-
 
 const PORT = 3001;
 app.listen(PORT, () => {

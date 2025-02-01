@@ -24,7 +24,7 @@
         <th>{{'status' | translate}}</th>
         <th>{{'classroom' | translate}}</th>
         <th>{{'date' | translate}}</th>
-        <th>{{'details' | translate}}</th>
+        <th *ngIf = "userlog.tipo_id == 3">{{'details' | translate}}</th>
       </tr>
     </ng-template>
 
@@ -35,7 +35,7 @@
         <td>{{ reunion.estado }}</td>
         <td>{{ reunion.aula }}</td>
         <td>{{ reunion.fecha | date : "short" }}</td>
-        <td>
+        <td *ngIf = "userlog.tipo_id == 3">
           <p-button
             [label]="'details' | translate"
             icon="pi pi-info-circle"

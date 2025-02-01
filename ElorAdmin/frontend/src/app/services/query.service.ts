@@ -76,6 +76,10 @@ export class QueryService {
     return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios/${userId}`);
   }
 
+  getHorariosAlumnos(userId: number): Observable<Horario[]> {
+    return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios-alumnos/${userId}`);
+  }
+
   getReuniones(): Observable<Reunion[]> {
     const url = `${this.apiUrl}/get-reuniones`;
     return this.http.get<any[]>(url);

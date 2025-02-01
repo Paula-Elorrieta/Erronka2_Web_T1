@@ -30,6 +30,9 @@
     "subject": "Subject",
     "status": "Status",
     "classroom": "Classroom",
-    "date": "Date"
-    
+    "date": "Date",
+    "HOME": "Home",
+    "MEETINGS": "Meetings",
+    "SCHEDULE": "Schedule",
+    "LOGOUT": "Logout"
 }

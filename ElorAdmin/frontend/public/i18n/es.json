@@ -30,7 +30,9 @@
   "subject": "Asunto",
   "status": "Estado",
   "classroom": "Aula",
-  "date": "Fecha"  
+  "date": "Fecha"  ,
+  "HOME": "Inicio",
+  "MEETINGS": "Reuniones",
+  "SCHEDULE": "Horarios",
+  "LOGOUT": "Cerrar Sesión"
 }
-
-

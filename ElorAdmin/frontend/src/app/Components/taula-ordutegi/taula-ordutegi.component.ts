@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './taula-ordutegi.component.css',
 })
 export class TaulaOrdutegiComponent {
+  userLog = JSON.parse(localStorage.getItem('user') || '{}');
+
   constructor(
     private queryService: QueryService,
     private translate: TranslateService
@@ -57,21 +59,39 @@ export class TaulaOrdutegiComponent {
       return;
     }
 
-    this.queryService.getHorarios(userId).subscribe({
-      next: (data: any) => {
-        console.log('Horarios obtenidos:', data);
-        if (data && Array.isArray(data.horarios)) {
-          this.horarios = data.horarios;
-          console.log('Horarios sin traducir:', this.horarios);
+    if (this.userlog.tipo_id == 4) {
+      this.queryService.getHorariosAlumnos(userId).subscribe({
+        next: (data: any) => {
+          console.log('Horarios obtenidos:', data);
+          if (data && Array.isArray(data.horarios)) {
+            this.horarios = data.horarios;
+            console.log('Horarios sin traducir:', this.horarios);
 
-          this.taulaOrduak = this.datuElkatu(this.horarios);
-          console.log('Tabla de horarios:', this.taulaOrduak);
-        }
-      },
-      error: (err) => {
-        console.error('Error al cargar horarios:', err);
-      },
-    });
+            this.taulaOrduak = this.datuElkatu(this.horarios);
+            console.log('Tabla de horarios:', this.taulaOrduak);
+          }
+        },
+        error: (err) => {
+          console.error('Error al cargar horarios:', err);
+        },
+      });
+    } else {
+      this.queryService.getHorarios(userId).subscribe({
+        next: (data: any) => {
+          console.log('Horarios obtenidos:', data);
+          if (data && Array.isArray(data.horarios)) {
+            this.horarios = data.horarios;
+            console.log('Horarios sin traducir:', this.horarios);
+
+            this.taulaOrduak = this.datuElkatu(this.horarios);
+            console.log('Tabla de horarios:', this.taulaOrduak);
+          }
+        },
+        error: (err) => {
+          console.error('Error al cargar horarios:', err);
+        },
+      });
+    }
   }
 
   datuElkatu(horarios: Horario[]) {

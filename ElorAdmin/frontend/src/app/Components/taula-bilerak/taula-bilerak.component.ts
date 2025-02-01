@@ -46,7 +46,7 @@ export class TaulaBilerakComponent implements OnInit {
 
   reunionesHartu() {
     const userId = Number(this.userlog.id);
-  
+
     this.queryService.getReuniones().subscribe({
       next: (data: any) => {
         this.reuniones = data.reuniones.filter((reunion: Reunion) =>
@@ -69,11 +69,11 @@ export class TaulaBilerakComponent implements OnInit {
 
   traducirEstado(reunion: Reunion, idioma: string): string {
     if (idioma === 'eu') {
-      return reunion.estado_eus || ''; 
+      return reunion.estado_eus || '';
     } else if (idioma === 'en') {
-      return reunion.estado_en || ''; 
+      return reunion.estado_en || '';
     } else {
-      return reunion.estado_es || ''; 
+      return reunion.estado_es || '';
     }
   }
 

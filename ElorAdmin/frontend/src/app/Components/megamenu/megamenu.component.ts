@@ -8,6 +8,7 @@ import { MegaMenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ImageModule } from 'primeng/image';
 import { SwitchHizkuntzaComponent } from '../switch-hizkuntza/switch-hizkuntza.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { User } from '../../interface/user';
 import { QueryService } from '../../services/query.service';
 
@@ -22,6 +23,7 @@ import { QueryService } from '../../services/query.service';
     ImageModule,
     SwitchHizkuntzaComponent,
     CommonModule,
+    TranslateModule,
   ],
   templateUrl: './megamenu.component.html',
   styleUrl: './megamenu.component.css',
@@ -36,8 +38,14 @@ export class MegamenuComponent {
   erabiltzaileak: User[] = [];
   reunionesCount: number = 0;
 
-  constructor(private router: Router, private query: QueryService) {
+  constructor(
+    private router: Router,
+    private query: QueryService,
+    private translateService: TranslateService
+  ) {
     console.log(this.userLogged.tipo_id);
+    this.translateService.setDefaultLang('eu');
+    this.translateService.use('eu');
   }
 
   ngOnInit() {
@@ -69,14 +77,14 @@ export class MegamenuComponent {
   }
 
   getikaslekop() {
-    let ikasleCop = 0;/*
+    let ikasleCop = 0; /*
     this.query.getErabiltzaileakEtaMezua().subscribe(
       (response) => {
         console.log('Erabiltzaileak lortu dira:', response);
         this.erabiltzaileak = response.users;
         console.log(this.erabiltzaileak);
 
-        
+
         this.erabiltzaileak.forEach( erabiltzaile => {
           if (erabiltzaile.tipo_id === 4) {
             ikasleCop++;
@@ -92,15 +100,15 @@ export class MegamenuComponent {
     return ikasleCop;
   }
 
-  getBileraKop() {/*
+  getBileraKop() {
+    /*
   this.query.getReuniones().subscribe(
     (response) => {
-      this.reunionesCount = response.length;  
+      this.reunionesCount = response.length;
     },
     (error) => {
       console.error('Errorea bilerak kargatzean:', error);
     }
   );*/
   }
-
 }

@@ -39,7 +39,7 @@ export class AuthGuard implements CanActivate {
       1: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu'], // GOD
       2: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu'], // ADMIN
       3: ['/home/homeirakasle', '/pages/bilerak', '/pages/ordutegi'], // IRAKASLE
-      4: ['/home/homeikasle', 'pages/ordutegi'], // IKASLE
+      4: ['/home/homeikasle', 'pages/ordutegi', '/pages/bilerak'], // IKASLE
     };
 
     const allowedPaths = accessMap[tipoId] || [];

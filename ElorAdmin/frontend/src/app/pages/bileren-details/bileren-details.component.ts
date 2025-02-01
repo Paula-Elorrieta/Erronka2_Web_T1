@@ -13,7 +13,6 @@ import { ArgazkiPipe } from '../../pipes/argazki.pipe';
 import { Dgenrc, Dgenre, Dterr, Dtituc, Dtitue, Ikastetxeak } from '../../interface/ikastetzeak';
 import * as mapboxgl from 'mapbox-gl';
 import { User } from '../../interface/user';
-import { Erabiltzaile } from '../../../../../../../2Tri/Errezetak/src/app/interface/erabiltzaile';
 
 @Component({
   selector: 'app-bileren-details',
@@ -98,8 +97,8 @@ export class BilerenDetailsComponent implements OnInit {
 
 
 
-          // HEY, BIHURKETA HEMEN DAGO!!!! MEZEDEZ 0,3 gehiago... 
-          const { lat, lng } = this.utmToLatLng(Number(this.Ikastetxea.COOR_X), Number(this.Ikastetxea.COOR_Y), 30);    
+          // HEY, BIHURKETA HEMEN DAGO!!!! MEZEDEZ 0,3 gehiago...
+          const { lat, lng } = this.utmToLatLng(Number(this.Ikastetxea.COOR_X), Number(this.Ikastetxea.COOR_Y), 30);
           // Hor zegoen bihurketa...
 
 
@@ -127,19 +126,19 @@ export class BilerenDetailsComponent implements OnInit {
       center: [lng, lat],
       projection: 'mercator'
     });
-  
+
     this.addMarkerWithText(lat, lng, this.Ikastetxea.NOM, this.Ikastetxea.DOMI);
   }
 
   // El problema solo es el marker, el mapa se muestra correctamente
   addMarkerWithText(lat: number, lng: number, ikastetzea: string = 'Ikastetzea', kokapena: string = 'Kokapena'): void {
     if (!this.map) return;
-  
+
     // Crear un div personalizado para el marcador con texto
     const markerElement = document.createElement('div');
     markerElement.className = 'custom-marker';
     markerElement.innerHTML = `<span>${ikastetzea}<br><small>${kokapena}</small></span>`;
-  
+
     // Agregar el marcador con el elemento HTML personalizado
     new mapboxgl.Marker(markerElement)
       .setLngLat([lng, lat])
@@ -185,14 +184,14 @@ export class BilerenDetailsComponent implements OnInit {
     const r1 = (a * (1 - e * e)) / Math.pow(1 - e * e * Math.pow(sinPhi1, 2), 1.5);
     const d = xAdj / (n1 * k0);
 
-    const latRad = phi1Rad - (n1 * tanPhi1 / r1) * 
-      (Math.pow(d, 2) / 2 - 
+    const latRad = phi1Rad - (n1 * tanPhi1 / r1) *
+      (Math.pow(d, 2) / 2 -
       (5 + 3 * t1 + 10 * c1 - 4 * Math.pow(c1, 2) - 9 * e1sq) * Math.pow(d, 4) / 24 +
       (61 + 90 * t1 + 298 * c1 + 45 * Math.pow(t1, 2) - 252 * e1sq - 3 * Math.pow(c1, 2)) * Math.pow(d, 6) / 720);
 
-    const lngRad = lambda0 + 
-      (d - 
-      (1 + 2 * t1 + c1) * Math.pow(d, 3) / 6 + 
+    const lngRad = lambda0 +
+      (d -
+      (1 + 2 * t1 + c1) * Math.pow(d, 3) / 6 +
       (5 - 2 * c1 + 28 * t1 - 3 * Math.pow(c1, 2) + 8 * e1sq + 24 * Math.pow(t1, 2)) * Math.pow(d, 5) / 120) / cosPhi1;
 
     const lat = latRad * (180 / Math.PI);
