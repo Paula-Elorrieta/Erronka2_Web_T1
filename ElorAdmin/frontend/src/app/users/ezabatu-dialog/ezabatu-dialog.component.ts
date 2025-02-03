@@ -4,7 +4,6 @@ import { User } from '../../interface/user';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
-
 @Component({
   selector: 'app-ezabatu-dialog',
   templateUrl: './ezabatu-dialog.component.html',
@@ -15,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 export class EzabatuDialogComponent {
   @Input() display: boolean = false;
   @Input() selectedUser!: User;
+  @Output() displayChange = new EventEmitter<boolean>();
   @Output() onDelete = new EventEmitter<User>();
 
   closeDialog() {

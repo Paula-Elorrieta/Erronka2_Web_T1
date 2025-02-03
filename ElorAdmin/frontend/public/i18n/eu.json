@@ -34,5 +34,9 @@
     "HOME": "Hasiera",
     "MEETINGS": "Bilerak",
     "SCHEDULE": "Ordutegiak",
-    "LOGOUT": "Saioa itxi"
+    "LOGOUT": "Saioa itxi",
+    "StudentsAmount": "Ikasle kopurua: ",
+    "TodayMeetingAmmount": "Gaurko bileren kopurua: ",
+    "MeetingDetails": "Bileraren xehetasunak",
+    "NoMeetingToday": "Ez dago bilerarik gaur"
 }

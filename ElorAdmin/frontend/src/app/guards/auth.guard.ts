@@ -36,9 +36,9 @@ export class AuthGuard implements CanActivate {
 
   private EgiaztatuBaimena(tipoId: number, routeUrl: string): boolean {
     const accessMap: { [key: number]: string[] } = {
-      1: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu'], // GOD
-      2: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu'], // ADMIN
-      3: ['/home/homeirakasle', '/pages/bilerak', '/pages/ordutegi'], // IRAKASLE
+      1: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu', '/pages/bilerak', '/pages/details'], // GOD
+      2: ['/home/homeadmin', '/users/details', '/users/gehitu', '/users/editatu', '/pages/bilerak', '/pages/details'], // ADMIN
+      3: ['/home/homeirakasle', '/pages/bilerak', '/pages/ordutegi', '/pages/details', 'pages/ikasleZerrenda'], // IRAKASLE
       4: ['/home/homeikasle', 'pages/ordutegi', '/pages/bilerak'], // IKASLE
     };
 

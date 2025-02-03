@@ -34,5 +34,9 @@
   "HOME": "Inicio",
   "MEETINGS": "Reuniones",
   "SCHEDULE": "Horarios",
-  "LOGOUT": "Cerrar Sesión"
+  "LOGOUT": "Cerrar Sesión",
+  "StudentsAmount": "Cantidad de estudiantes: ",
+  "TodayMeetingAmmount": "Cantidad de reuniones de hoy: ",
+  "MeetingDetails": "Detalles de la reunion",
+  "NoMeetingToday": "No hay reuniones hoy"
 }

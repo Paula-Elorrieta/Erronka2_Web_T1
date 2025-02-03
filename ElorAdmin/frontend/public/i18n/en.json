@@ -34,5 +34,9 @@
     "HOME": "Home",
     "MEETINGS": "Meetings",
     "SCHEDULE": "Schedule",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "StudentsAmount": "Students Amount: ",
+    "TodayMeetingAmmount": "Today Meeting Amount: ",
+    "MeetingDetails": "Meeting Details",
+    "NoMeetingToday": "No Meeting Today"
 }
