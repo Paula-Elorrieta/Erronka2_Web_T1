@@ -1,66 +1,60 @@
-
+<app-megamenu></app-megamenu>
 <div id="taulaErabiltzaileak">
-    <p-table
-      [value]="erabiltzaileak"
-      [paginator]="true"
-      [rows]="10"
-      [first]="first"
-      [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      [currentPageReportTemplate]="'entries-report' | translate"
-      [globalFilterFields]="['erabiltzaile.dni', 'erabiltzaile.nombre', 'erabiltzaile.apellidos']"
-      (onPage)="pageChange($event)"
-      [rowsPerPageOptions]="[10, 25, 50]"
-    >
-      <ng-template #header>
-        <tr>
-          <th>{{ 'username' | translate }}</th>
-          <th>{{ 'name' | translate }}</th>
-          <th>{{ 'surname' | translate }}</th>
-          <th>{{ 'dni' | translate }}</th>
-          <th>{{ 'type' | translate }}</th>
-          <th>{{ 'photo' | translate }}</th>
-        </tr>
+  <p-table
+    #dt
+    [value]="filteredUsers"
+    [paginator]="true"
+    [rows]="10"
+    [first]="first"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [currentPageReportTemplate]="'entries-report' | translate"
+    [globalFilterFields]="[
+      'erabiltzaile.dni',
+      'erabiltzaile.nombre',
+      'erabiltzaile.apellidos'
+    ]"
+    (onPage)="pageChange($event)"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template #header>
+      <tr>
+        <th>{{ "dni" | translate }}</th>
+        <th>{{ "name" | translate }}</th>
+        <th>{{ "surname" | translate }}</th>
+        <th>{{ "curso" | translate }}</th>
+        <th>{{ "photo" | translate }}</th>
+      </tr>
+      <tr>
         <th>
-            <p-columnFilter
-                    type="text"
-                    field="name"
-                    placeholder="DNI"
-                    ariaLabel="DNI"
-                ></p-columnFilter>
+          <input type="text" [(ngModel)]="filters.dni" (keydown.enter)="applyFilter()" placeholder="DNI" />
         </th>
         <th>
-            <p-columnFilter
-                    type="text"
-                    field="name"
-                    placeholder="Nombre"
-                    ariaLabel="Nombre"
-                ></p-columnFilter>
+          <input type="text" [(ngModel)]="filters.nombre" (keydown.enter)="applyFilter()" placeholder="Nombre" />
         </th>
         <th>
-            <p-columnFilter
-                    type="text"
-                    field="name"
-                    placeholder="Apellidos"
-                    ariaLabel="Apellidos"
-                ></p-columnFilter>
+          <input type="text" [(ngModel)]="filters.apellidos" (keydown.enter)="applyFilter()" placeholder="Apellidos" />
         </th>
-      </ng-template>
-      <ng-template #body let-erabiltzaile>
-        <tr>
-          <td>{{ erabiltzaile.username }}</td>
-          <td>{{ erabiltzaile.nombre }}</td>
-          <td>{{ erabiltzaile.apellidos }}</td>
-          <td>{{ erabiltzaile.dni }}</td>
-          <td>{{ erabiltzaile.tipo_id }}</td>
-          <td>
-            <p-avatar
-              [image]="erabiltzaile | argazki"
-              size="large"
-              shape="circle">
-            </p-avatar>
-          </td>
-        </tr>
-      </ng-template>    
-    </p-table>
-  </div>
+        <th>
+          <input type="text" [(ngModel)]="filters.ciclo" (keydown.enter)="applyFilter()" placeholder="Curso" />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-erabiltzaile>
+      <tr>
+        <td>{{ erabiltzaile.dni }}</td>
+        <td>{{ erabiltzaile.nombre }}</td>
+        <td>{{ erabiltzaile.apellidos }}</td>
+        <td>{{ getCiclosString(erabiltzaile.id!) }}</td>
+        <td>
+          <p-avatar
+            [image]="erabiltzaile | argazki"
+            size="large"
+            shape="circle"
+          >
+          </p-avatar>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
