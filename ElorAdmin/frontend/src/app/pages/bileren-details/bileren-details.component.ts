@@ -124,7 +124,6 @@ export class BilerenDetailsComponent implements OnInit {
       style: this.style,
       zoom: 13,
       center: [lng, lat],
-      projection: 'mercator'
     });
 
     this.addMarkerWithText(lat, lng, this.Ikastetxea.NOM, this.Ikastetxea.DOMI);
@@ -134,14 +133,14 @@ export class BilerenDetailsComponent implements OnInit {
   addMarkerWithText(lat: number, lng: number, ikastetzea: string = 'Ikastetzea', kokapena: string = 'Kokapena'): void {
     if (!this.map) return;
 
-    // Crear un div personalizado para el marcador con texto
-    const markerElement = document.createElement('div');
-    markerElement.className = 'custom-marker';
-    markerElement.innerHTML = `<span>${ikastetzea}<br><small>${kokapena}</small></span>`;
+    //const markerElement = document.createElement('div');
+    //markerElement.className = 'custom-marker';
+    //markerElement.innerHTML = ``;
 
-    // Agregar el marcador con el elemento HTML personalizado
-    new mapboxgl.Marker(markerElement)
+    new mapboxgl.Marker()
       .setLngLat([lng, lat])
+      .setPopup(new mapboxgl.Popup({ offset: 0 })
+          .setHTML('<span>${ikastetzea}<br><small>${kokapena}</small></span>'))
       .addTo(this.map);
   }
 
