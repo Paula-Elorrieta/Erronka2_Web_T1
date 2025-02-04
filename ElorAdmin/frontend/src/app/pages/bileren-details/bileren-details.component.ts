@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Reunion } from '../../interface/reuniones';
 import { QueryService } from '../../services/query.service';
@@ -9,21 +9,20 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { Button } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { MegamenuComponent } from '../../Components/megamenu/megamenu.component';
-import { ArgazkiPipe } from '../../pipes/argazki.pipe';
-import { Dgenrc, Dgenre, Dterr, Dtituc, Dtitue, Ikastetxeak } from '../../interface/ikastetzeak';
+import { Ikastetxeak } from '../../interface/ikastetxeak';
 import * as mapboxgl from 'mapbox-gl';
-import { User } from '../../interface/user';
 
 @Component({
   selector: 'app-bileren-details',
-  imports: [CommonModule,
-      AvatarModule,
-      AvatarGroupModule,
-      ImageModule,
-      ArgazkiPipe,
-      Button,
-      TranslateModule,
-      MegamenuComponent,],
+  imports: [
+    CommonModule,
+    AvatarModule,
+    AvatarGroupModule,
+    ImageModule,
+    Button,
+    TranslateModule,
+    MegamenuComponent,
+  ],
   templateUrl: './bileren-details.component.html',
   styleUrl: './bileren-details.component.css',
 })
@@ -33,125 +32,123 @@ export class BilerenDetailsComponent implements OnInit {
   reunion: Reunion = {};
   irakasle: string = '';
   ikasle: string = '';
-  Ikastetxea: Ikastetxeak = {
-    CCEN: 0,
-    NOM: '',
-    NOME: '',
-    DGENRC: Dgenrc.Caapd,
-    DGENRE: Dgenre.Agde,
-    GENR: 0,
-    MUNI: 0,
-    DMUNIC: '',
-    DMUNIE: '',
-    DTERRC: Dterr.ArabaÁlava,
-    DTERRE: Dterr.ArabaÁlava,
-    DEPE: '',
-    DTITUC: Dtituc.DepartEducación,
-    DTITUE: Dtitue.BestePublikoak,
-    DOMI: '',
-    CPOS: 0,
-    TEL1: 0,
-    TFAX: 0,
-    EMAIL: '',
-    PAGINA: '',
-    COOR_X: '',
-    COOR_Y: '',
-    LATITUD: 0,
-    LONGITUD: 0
-  };
+  Ikastetxea: Ikastetxeak | undefined;
+  map!: mapboxgl.Map;
+  latUmt = 0;
+  lngUmt = 0
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private queryS: QueryService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private queryS: QueryService) {}
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.queryS.getReunion(this.id).subscribe (
+
+    this.queryS.getReunion(this.id).subscribe(
       (response) => {
-        console.log('Bilera lortu da:', response);
         if (response) {
           this.reunion = response;
 
           this.queryS.getErabiltzailea(this.reunion.alumno_id!.toString()).subscribe(
-            (user) => {
-              this.ikasle = user ? user.nombre! : '';
-            },
-            (error) => {
-              console.error('Errorea ikaslea kargatzean:', error);
-              this.ikasle = '';
-            }
+            (user) => this.ikasle = user?.nombre || '',
+            (error) => console.error('Error cargando ikaslea:', error)
           );
 
           this.queryS.getErabiltzailea(this.reunion.profesor_id!.toString()).subscribe(
-            (user) => {
-              this.irakasle = user ? user.nombre! : '';
-            },
-            (error) => {
-              console.error('Errorea irakaslea kargatzean:', error);
-              this.irakasle = '';
-            }
+            (user) => this.irakasle = user?.nombre || '',
+            (error) => console.error('Error cargando irakaslea:', error)
           );
 
-          this.Ikastetxea = this.queryS.getIkastetxea(this.reunion.id_centro?.toString() || '') || {};
-
-
-
-          // HEY, BIHURKETA HEMEN DAGO!!!! MEZEDEZ 0,3 gehiago...
-          const { lat, lng } = this.utmToLatLng(Number(this.Ikastetxea.COOR_X), Number(this.Ikastetxea.COOR_Y), 30);
-          // Hor zegoen bihurketa...
-
-
-
-          this.mapaHasi(lng, lat);
+          if (this.reunion.id_centro) {
+            this.queryS.getIkastetxea(this.reunion.id_centro.toString()).subscribe(
+              (ikastetxea) => {
+                this.Ikastetxea = ikastetxea;
+                this.initMap();
+              },
+              (error) => console.error('Error cargando ikastetxea:', error)
+            );
+          }
         } else {
           alert('Bilera ez da existitzen');
         }
+
       },
-      (error) => {
-        console.error('Errorea bilera kargatzean:', error);
-      }
+      (error) => console.error('Errorea bilera kargatzean:', error)
     );
   }
+  //conversion de coordenadas UTM a latitud y longitud
 
-  map: mapboxgl.Map | undefined;
-  style = 'mapbox://styles/mapbox/streets-v11';
 
-  mapaHasi(lng: number, lat: number): void {
-    this.map = new mapboxgl.Map({
-      accessToken: this.token,
-      container: 'mapa',
-      style: this.style,
-      zoom: 13,
-      center: [lng, lat],
-    });
+  initMap() {
+    if (this.Ikastetxea?.COOR_X && this.Ikastetxea?.COOR_Y) {
+      const utmConverted = this.utmToLatLng(Number(this.Ikastetxea.COOR_X), Number(this.Ikastetxea.COOR_Y), 30, 'N');
 
-    this.addMarkerWithText(lat, lng, this.Ikastetxea.NOM, this.Ikastetxea.DOMI);
+      if (utmConverted) {
+        this.latUmt = utmConverted.lat;
+        this.lngUmt = utmConverted.lng;
+      } else {
+        console.error('Error en la conversión de coordenadas UTM.');
+        return;
+      }
+    }
+
+    if (this.Ikastetxea?.LATITUD && this.Ikastetxea?.LONGITUD) {
+      this.map = new mapboxgl.Map({
+        accessToken: this.token,
+        container: 'mapa',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [this.Ikastetxea.LATITUD, this.Ikastetxea.LONGITUD], // OJO: Mapbox usa [lng, lat]
+        zoom: 16,
+      });
+
+      // 🔵 Marcador de coordenadas LAT/LONG (Azul)
+      new mapboxgl.Marker({ color: 'blue' })
+        .setLngLat([this.Ikastetxea.LATITUD, this.Ikastetxea.LONGITUD])
+        .setPopup(new mapboxgl.Popup().setHTML(`
+        <div style="color: black;">
+
+          <h3 style="color: #0044cc;">${this.Ikastetxea.NOM || 'Nombre no disponible'}</h3>
+                     <p><strong>Dirección:</strong> ${this.Ikastetxea.DOMI || 'No disponible'}</p>
+            <p><strong>Municipio:</strong> ${this.Ikastetxea.DMUNIC || 'No disponible'}</p>
+            <p><strong>Código Postal:</strong> ${this.Ikastetxea.CPOS || 'No disponible'}</p>
+            <p><strong>Teléfono:</strong> ${this.Ikastetxea.TEL1 ? `+34 ${this.Ikastetxea.TEL1}` : 'No disponible'}</p>
+            <p><strong>Email:</strong> <a href="mailto:${this.Ikastetxea.EMAIL || '#'}">${this.Ikastetxea.EMAIL || 'No disponible'}</a></p>
+            <p><strong>Página web:</strong> <a href="${this.Ikastetxea.PAGINA || '#'}" target="_blank">${this.Ikastetxea.PAGINA || 'No disponible'}</a></p>
+            <p><strong>Coordenadas:</strong> Latitud: ${this.Ikastetxea.LATITUD}, Longitud: ${this.Ikastetxea.LONGITUD}</p>
+        </div>
+
+        `))
+        .addTo(this.map);
+
+      // 🔴 Marcador de coordenadas UTM (Rojo)
+      new mapboxgl.Marker({ color: 'red' })
+        .setLngLat([this.lngUmt, this.latUmt])
+        .setPopup(new mapboxgl.Popup().setHTML(`
+          <div style="color: black;">
+            <h3 style="color: #cc0000;">${this.Ikastetxea.NOM || 'Nombre no disponible'}</h3>
+            <p><strong>Dirección:</strong> ${this.Ikastetxea.DOMI || 'No disponible'}</p>
+            <p><strong>Municipio:</strong> ${this.Ikastetxea.DMUNIC || 'No disponible'}</p>
+            <p><strong>Código Postal:</strong> ${this.Ikastetxea.CPOS || 'No disponible'}</p>
+            <p><strong>Teléfono:</strong> ${this.Ikastetxea.TEL1 ? `+34 ${this.Ikastetxea.TEL1}` : 'No disponible'}</p>
+            <p><strong>Email:</strong> <a href="mailto:${this.Ikastetxea.EMAIL || '#'}">${this.Ikastetxea.EMAIL || 'No disponible'}</a></p>
+            <p><strong>Página web:</strong> <a href="${this.Ikastetxea.PAGINA || '#'}" target="_blank">${this.Ikastetxea.PAGINA || 'No disponible'}</a></p>
+            <p><strong>Coordenadas:</strong> Latitud: ${this.Ikastetxea.LATITUD}, Longitud: ${this.Ikastetxea.LONGITUD}</p>
+          </div>
+        `))
+        .addTo(this.map);
+
+
+    } else {
+      console.error('No se encontraron coordenadas para el Ikastetxea');
+    }
   }
 
-  // El problema solo es el marker, el mapa se muestra correctamente
-  addMarkerWithText(lat: number, lng: number, ikastetzea: string = 'Ikastetzea', kokapena: string = 'Kokapena'): void {
-    if (!this.map) return;
 
-    //const markerElement = document.createElement('div');
-    //markerElement.className = 'custom-marker';
-    //markerElement.innerHTML = ``;
-
-    new mapboxgl.Marker()
-      .setLngLat([lng, lat])
-      .setPopup(new mapboxgl.Popup({ offset: 0 })
-          .setHTML('<span>${ikastetzea}<br><small>${kokapena}</small></span>'))
-      .addTo(this.map);
-  }
 
   atzera() {
     window.history.back();
   }
 
-
-  // NO TOCAR ESTA FUNCIÓN, ESTO FUNCIONA Y DA MUCHO PUNTICO
   utmToLatLng(x: number, y: number, zone: number, hemisphere: string = 'N'): { lat: number, lng: number } {
-    const a = 6378137.0;
+    const a = 6378119.0; // real 6378137.0
     const f = 1 / 298.257223563;
     const k0 = 0.9996;
 
@@ -198,4 +195,5 @@ export class BilerenDetailsComponent implements OnInit {
 
     return { lat, lng };
   }
+
 }

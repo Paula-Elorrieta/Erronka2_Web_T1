@@ -1,29 +1,30 @@
 export interface Ikastetxeak {
-    CCEN:     number;
-    NOM:      string;
-    NOME:     string;
-    DGENRC:   Dgenrc;
-    DGENRE:   Dgenre;
-    GENR:     GENREnum | number;
-    MUNI:     number;
-    DMUNIC:   string;
-    DMUNIE:   string;
-    DTERRC:   Dterr;
-    DTERRE:   Dterr;
-    DEPE:     number | string;
-    DTITUC:   Dtituc;
-    DTITUE:   Dtitue;
-    DOMI:     string;
-    CPOS:     number;
-    TEL1:     number;
-    TFAX:     Dgenrc | number;
-    EMAIL:    string;
-    PAGINA:   string;
-    COOR_X:   number | string;
-    COOR_Y:   number | string;
-    LATITUD:  number;
-    LONGITUD: number;
+  CCEN:     number;
+  NOM?:      string | null;
+  NOME?:     string | null;
+  DGENRC?:   Dgenrc | null;
+  DGENRE?:   Dgenre | null;
+  GENR?:     GENREnum | number | null;
+  MUNI?:     number | null;
+  DMUNIC?:   string | null;
+  DMUNIE?:   string | null;
+  DTERRC?:   Dterr | null;
+  DTERRE?:   Dterr | null;
+  DEPE?:     number | string | null;
+  DTITUC?:   Dtituc | null;
+  DTITUE?:   Dtitue | null;
+  DOMI?:     string | null;
+  CPOS?:     number | null;
+  TEL1?:     number | null;
+  TFAX?:     Dgenrc | number | null;
+  EMAIL?:    string | null;
+  PAGINA?:   string | null;
+  COOR_X?:   number | string | null;
+  COOR_Y?:   number | string | null;
+  LATITUD?:  number | null;
+  LONGITUD?: number | null;
 }
+
 
 export enum Dgenrc {
     Caapd = "CAAPD",
