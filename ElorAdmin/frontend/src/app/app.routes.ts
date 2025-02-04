@@ -11,6 +11,7 @@ import { BileraOrriaComponent } from './pages/bilera-orria/bilera-orria.componen
 import { BilerenDetailsComponent } from './pages/bileren-details/bileren-details.component';
 import { OrdutegiOrriaComponent } from './pages/ordutegi-orria/ordutegi-orria.component';
 import { GehituEditatuOrriaComponent } from './pages/gehitu-editatu-orria/gehitu-editatu-orria.component';
+import { IkasleZerrendaComponent } from './pages/ikasle-zerrenda/ikasle-zerrenda.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -41,6 +42,7 @@ export const routes: Routes = [
       { path: 'bilerak', component: BileraOrriaComponent },
       { path: 'details/:id', component: BilerenDetailsComponent },
       { path: 'ordutegi', component: OrdutegiOrriaComponent },
+      { path: 'ikasleZerrenda', component: IkasleZerrendaComponent },
     ],
   },
 

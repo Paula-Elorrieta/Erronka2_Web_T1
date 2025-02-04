@@ -85,6 +85,10 @@ export class QueryService {
     return this.http.get<any[]>(url);
   }
 
+  getCiclosByUser(userId: number): Observable<Ciclos> {
+    return this.http.get<Ciclos>(`${this.apiUrl}/get-ciclos/${userId}`);
+  }
+
   getReunion(id: string): Observable<Reunion | undefined> {
     return this.http
       .get<{ reuniones: Reunion[] }>(`${this.apiUrl}/get-reuniones`)

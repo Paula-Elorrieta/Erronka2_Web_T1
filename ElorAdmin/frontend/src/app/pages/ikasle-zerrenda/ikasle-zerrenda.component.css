@@ -22,3 +22,27 @@ p-table td {
   border-bottom: 1px solid #ddd;
 }
 
+
+#taulaErabiltzaileak input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  margin: 4px 0;
+  transition: border-color 0.3s ease;
+}
+
+#taulaErabiltzaileak input[type="text"]:focus {
+  border-color: #5b9bd5; 
+  outline: none; 
+}
+
+#taulaErabiltzaileak input[type="text"]:placeholder-shown {
+  color: #bbb;
+}
+
+#taulaErabiltzaileak th {
+  padding: 10px 8px;
+}

@@ -27,16 +27,16 @@
       </tr>
       <tr>
         <th>
-          <input type="text" [(ngModel)]="filters.dni" (keydown.enter)="applyFilter()" placeholder="DNI" />
+          <input type="text" [(ngModel)]="filters.dni" (keydown.enter)="applyFilter()" />
         </th>
         <th>
-          <input type="text" [(ngModel)]="filters.nombre" (keydown.enter)="applyFilter()" placeholder="Nombre" />
+          <input type="text" [(ngModel)]="filters.nombre" (keydown.enter)="applyFilter()" />
         </th>
         <th>
-          <input type="text" [(ngModel)]="filters.apellidos" (keydown.enter)="applyFilter()" placeholder="Apellidos" />
+          <input type="text" [(ngModel)]="filters.apellidos" (keydown.enter)="applyFilter()" />
         </th>
         <th>
-          <input type="text" [(ngModel)]="filters.ciclo" (keydown.enter)="applyFilter()" placeholder="Curso" />
+          <input type="text" [(ngModel)]="filters.ciclo" (keydown.enter)="applyFilter()" />
         </th>
       </tr>
     </ng-template>
@@ -45,7 +45,7 @@
         <td>{{ erabiltzaile.dni }}</td>
         <td>{{ erabiltzaile.nombre }}</td>
         <td>{{ erabiltzaile.apellidos }}</td>
-        <td>{{ getCiclosString(erabiltzaile.id!) }}</td>
+        <td>{{ getCiclo(erabiltzaile.id!) }}</td> 
         <td>
           <p-avatar
             [image]="erabiltzaile | argazki"

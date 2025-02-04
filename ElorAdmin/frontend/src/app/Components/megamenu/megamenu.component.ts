@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -11,6 +11,7 @@ import { SwitchHizkuntzaComponent } from '../switch-hizkuntza/switch-hizkuntza.c
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { User } from '../../interface/user';
 import { QueryService } from '../../services/query.service';
+import { Reunion } from '../../interface/reuniones';
 
 @Component({
   selector: 'app-megamenu',
@@ -28,14 +29,16 @@ import { QueryService } from '../../services/query.service';
   templateUrl: './megamenu.component.html',
   styleUrl: './megamenu.component.css',
 })
-export class MegamenuComponent {
+export class MegamenuComponent implements OnInit {
   isHovered: boolean = false;
   isHovered2: boolean = false;
   isHovered3: boolean = false;
   isHovered4: boolean = false;
+  isHovered5: boolean = false;
   ikasleKop: number = 0;
   userLogged: User = JSON.parse(localStorage.getItem('user') || '{}');
   erabiltzaileak: User[] = [];
+  bilerak: Reunion[] = [];
   reunionesCount: number = 0;
 
   constructor(
@@ -49,7 +52,7 @@ export class MegamenuComponent {
   }
 
   ngOnInit() {
-    this.ikasleKop = this.getikaslekop();
+    this.getIkasleKop();
     this.getBileraKop();
   }
 
@@ -66,6 +69,10 @@ export class MegamenuComponent {
     this.router.navigate(['/pages/ordutegi']);
   }
 
+  ikasleakIkusi() {
+    this.router.navigate(['/pages/ikasleZerrenda']);
+  }
+
   homeBueltatu() {
     if (this.userLogged.tipo_id === 1 || this.userLogged.tipo_id === 2) {
       this.router.navigate(['/home/homeadmin']);
@@ -76,39 +83,43 @@ export class MegamenuComponent {
     }
   }
 
-  getikaslekop() {
-    let ikasleCop = 0; /*
+  getIkasleKop() {
     this.query.getErabiltzaileakEtaMezua().subscribe(
       (response) => {
         console.log('Erabiltzaileak lortu dira:', response);
         this.erabiltzaileak = response.users;
-        console.log(this.erabiltzaileak);
 
-
-        this.erabiltzaileak.forEach( erabiltzaile => {
-          if (erabiltzaile.tipo_id === 4) {
-            ikasleCop++;
-          }
-        });
-        this.query.setErabiltzaileCount(ikasleCop);
+        this.ikasleKop = this.erabiltzaileak.filter(
+          (erabiltzaile) => erabiltzaile.tipo_id == 4
+        ).length;
+        this.query.setErabiltzaileCount(this.ikasleKop);
       },
       (error) => {
         console.error('Errorea erabiltzaileak kargatzean:', error);
       }
-    );*/
-
-    return ikasleCop;
+    );
   }
 
   getBileraKop() {
-    /*
-  this.query.getReuniones().subscribe(
-    (response) => {
-      this.reunionesCount = response.length;
-    },
-    (error) => {
-      console.error('Errorea bilerak kargatzean:', error);
-    }
-  );*/
+    this.query.getReuniones().subscribe({
+      next: (data: any) => {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+        this.bilerak = data.reuniones.filter((reunion: Reunion) => {
+          if (!reunion.fecha) {
+            return false;
+          }
+
+          const reunionDate = new Date(reunion.fecha);
+
+          return reunionDate >= startOfDay && reunionDate <= endOfDay;
+        });
+      },
+      error: (err: any) => {
+        console.error('Errorea erabiltzaileak kargatzean:', err);
+      },
+    });
   }
 }
