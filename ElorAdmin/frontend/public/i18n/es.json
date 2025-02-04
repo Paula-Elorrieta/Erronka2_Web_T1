@@ -11,6 +11,7 @@
   "name": "Nombre",
   "surname": "Apellido",
   "dni": "DNI",
+  "curso": "Curso",
   "address": "Dirección",
   "phone1": "Teléfono 1",
   "phone2": "Teléfono 2",
@@ -34,5 +35,6 @@
   "HOME": "Inicio",
   "MEETINGS": "Reuniones",
   "SCHEDULE": "Horarios",
+  "VIEW": "Ver",
   "LOGOUT": "Cerrar Sesión"
 }

@@ -11,6 +11,7 @@
     "name": "Name",
     "surname": "Surname",
     "dni": "DNI",
+    "curso": "Course",
     "address": "Address",
     "phone1": "Phone 1",
     "phone2": "Phone 2",
@@ -34,5 +35,6 @@
     "HOME": "Home",
     "MEETINGS": "Meetings",
     "SCHEDULE": "Schedule",
+    "VIEW": "View",
     "LOGOUT": "Logout"
 }

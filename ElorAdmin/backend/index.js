@@ -147,6 +147,33 @@ app.get("/get-horarios-alumnos/:id", (req, res) => {
   });
 });
 
+app.get("/get-ciclos/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "'Id parametroa ez da balidoa'" });
+  }
+
+  const query = `
+    SELECT c.id, c.nombre 
+    FROM ciclos c
+    JOIN matriculaciones m ON c.id = m.ciclo_id
+    WHERE m.alum_id = ?;
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Errorea datu-basera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
+    }
+
+    if (results.length > 0) {
+      return res.status(200).json({ ciclos: results });
+    } else {
+      return res.status(404).json({ ciclos: [] });
+    }
+  });
+});
+
 app.get("/get-reuniones", (req, res) => {
   const query = "SELECT * FROM reuniones r";
 

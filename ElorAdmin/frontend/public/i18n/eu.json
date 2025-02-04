@@ -11,6 +11,7 @@
     "name": "Izena",
     "surname": "Abizena",
     "dni": "NAN",
+    "curso": "Ikasturtea",
     "address": "Helbidea",
     "phone1": "Telefonoa 1",
     "phone2": "Telefonoa 2",
@@ -34,5 +35,6 @@
     "HOME": "Hasiera",
     "MEETINGS": "Bilerak",
     "SCHEDULE": "Ordutegiak",
+    "VIEW": "Ikusi",
     "LOGOUT": "Saioa itxi"
 }
