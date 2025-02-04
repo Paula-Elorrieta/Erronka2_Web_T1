@@ -49,9 +49,17 @@ export class TaulaBilerakComponent implements OnInit {
 
     this.queryService.getReuniones().subscribe({
       next: (data: any) => {
-        this.reuniones = data.reuniones.filter((reunion: Reunion) =>
-          this.userlog.tipo_id === 3 ? reunion.profesor_id === userId : reunion.alumno_id === userId
-        );
+        if (this.userlog.tipo_id === 1 || this.userlog.tipo_id === 2) {
+          // Si el usuario es de tipo 1 o 2, obtiene todas las reuniones
+          this.reuniones = data.reuniones;
+        } else {
+          // Si el usuario es de tipo 3 o 4, filtra por tipo_id y usuario
+          this.reuniones = data.reuniones.filter((reunion: Reunion) =>
+            this.userlog.tipo_id === 3
+              ? reunion.profesor_id === userId
+              : reunion.alumno_id === userId
+          );
+        }
         this.eguneratuHizkuntza();
       },
       error: (err) => {

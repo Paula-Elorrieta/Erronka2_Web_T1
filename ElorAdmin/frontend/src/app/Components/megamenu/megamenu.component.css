@@ -1,15 +1,21 @@
 @import "primeicons/primeicons.css";
 
 * {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   font-size: 20px;
   margin-right: 10px;
+  box-sizing: border-box; 
 }
 
-
 .switch-hizkuntza {
-	position: absolute;
-	font-family: 'Arial', sans-serif;
-	top: 6rem;
-	right: 1rem;
+  position: absolute;
+  top: 6rem;
+  right: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+@media (max-width: 1550px) {
+  .switch-hizkuntza {
+    margin-bottom: 100px;
   }
+}

@@ -22,3 +22,9 @@ p-table td {
   border-bottom: 1px solid #ddd;
 }
 
+@media (max-width: 1550px) {
+  #taulaErabiltzaileak {
+    margin-top: 150px;
+  }
+}
+

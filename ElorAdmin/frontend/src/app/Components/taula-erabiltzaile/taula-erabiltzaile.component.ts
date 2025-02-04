@@ -107,29 +107,23 @@ export class TaulaErabiltzaileComponent implements OnInit {
     this.router.navigate(['/users/details', user.id]);
   }
 
+
   openDeleteDialog(user: User) {
-    this.selectedUser = user;
-    this.displayDeleteDialog = true;
+    this.selectedUser = user; // Asignar el usuario seleccionado al diálogo
+    this.displayDeleteDialog = true; // Mostrar el diálogo
   }
-
-  ezabatuErabiltzaile(user: User) {
-    this.selectedUser = user;
-
-    this.confirmationService.confirm({
-      message: `¿Estás seguro de que deseas eliminar a ${user.nombre}?`,
-      header: 'Confirmar eliminación',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // // Acción al aceptar
-        // this.erabiltzaileService.deleteUser(user.id).subscribe(() => {
-        //   this.messageService.add({ severity: 'success', summary: 'Eliminado', detail: `${user.nombre} ha sido eliminado.` });
-        // });
-      },
-      reject: () => {
-        // Acción al rechazar
-        // this.messageService.add({ severity: 'info', summary: 'Cancelado', detail: 'Eliminación cancelada' });
-      },
-    });
+  
+  ezabatuUser(user: User) {
+    // Aquí puedes agregar la lógica para eliminar al usuario
+    console.log(`Usuario ${user.nombre} eliminado.`);
+  
+    // Llamar a la API para eliminar al usuario, por ejemplo:
+    // this.queryService.deleteUser(user.id).subscribe(() => {
+    //   this.messageService.add({ severity: 'success', summary: 'Usuario eliminado', detail: `${user.nombre} ha sido eliminado.` });
+    // });
+  
+    // Cerrar el diálogo después de eliminar
+    this.displayDeleteDialog = false;
   }
 
   gehituErabiltzaile() {
