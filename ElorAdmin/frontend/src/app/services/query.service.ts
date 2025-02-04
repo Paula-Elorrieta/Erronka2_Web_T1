@@ -68,15 +68,15 @@ export class QueryService {
   }
 
   getHorariosAlumnos(userId: number): Observable<Horario[]> {
-    return this.http.get<Horario[]>(`${this.apiUrl}/get-horarios-alumnos/${userId}`);
+    return this.http.get<Horario[]>(
+      `${this.apiUrl}/get-horarios-alumnos/${userId}`
+    );
   }
 
   getReuniones(): Observable<Reunion[]> {
     const url = `${this.apiUrl}/get-reuniones`;
     return this.http.get<any[]>(url);
   }
-
-
 
   getReunion(id: string): Observable<Reunion | undefined> {
     return this.http

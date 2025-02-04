@@ -35,7 +35,9 @@ export class MegamenuComponent implements OnInit {
   isHovered3: boolean = false;
   isHovered4: boolean = false;
   isHovered5: boolean = false;
+  isHovered6: boolean = false;
   ikasleKop: number = 0;
+  irakasleKop: number = 0;
   userLogged: User = JSON.parse(localStorage.getItem('user') || '{}');
   erabiltzaileak: User[] = [];
   bilerak: Reunion[] = [];
@@ -54,6 +56,7 @@ export class MegamenuComponent implements OnInit {
   ngOnInit() {
     this.getIkasleKop();
     this.getBileraKop();
+    this.getIrakasleKop();
   }
 
   logout() {
@@ -86,13 +89,28 @@ export class MegamenuComponent implements OnInit {
   getIkasleKop() {
     this.query.getErabiltzaileakEtaMezua().subscribe(
       (response) => {
-        console.log('Erabiltzaileak lortu dira:', response);
         this.erabiltzaileak = response.users;
 
         this.ikasleKop = this.erabiltzaileak.filter(
           (erabiltzaile) => erabiltzaile.tipo_id == 4
         ).length;
         this.query.setErabiltzaileCount(this.ikasleKop);
+      },
+      (error) => {
+        console.error('Errorea erabiltzaileak kargatzean:', error);
+      }
+    );
+  }
+
+  getIrakasleKop() {
+    this.query.getErabiltzaileakEtaMezua().subscribe(
+      (response) => {
+        this.erabiltzaileak = response.users;
+
+        this.irakasleKop = this.erabiltzaileak.filter(
+          (erabiltzaile) => erabiltzaile.tipo_id == 3
+        ).length;
+        this.query.setErabiltzaileCount(this.irakasleKop);
       },
       (error) => {
         console.error('Errorea erabiltzaileak kargatzean:', error);

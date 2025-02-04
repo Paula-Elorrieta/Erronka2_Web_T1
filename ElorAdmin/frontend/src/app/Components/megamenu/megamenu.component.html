@@ -34,7 +34,6 @@
     ></button>
     <button
       pButton
-      *ngIf="userLogged.tipo_id == 3 || userLogged.tipo_id == 4"
       [label]="'MEETINGS' | translate"
       icon="pi pi-fw pi-calendar"
       class="p-button-danger text-lg"
@@ -107,6 +106,7 @@
   <app-switch-hizkuntza></app-switch-hizkuntza>
   <div *ngIf="userLogged.tipo_id == 1 || userLogged.tipo_id == 2">
     <h2>{{ "StudentsAmount" | translate }} {{ ikasleKop }}</h2>
+    <h2>{{ "TeachersAmount" | translate }} {{ irakasleKop }}</h2>
     <div *ngIf="bilerak && bilerak.length > 0">
       <h2>{{ "TodayMeetingAmmount" | translate }} {{ bilerak.length }}</h2>
     </div>

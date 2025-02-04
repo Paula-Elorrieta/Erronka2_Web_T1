@@ -31,7 +31,7 @@
   "subject": "Asunto",
   "status": "Estado",
   "classroom": "Aula",
-  "date": "Fecha"  ,
+  "date": "Fecha",
   "HOME": "Inicio",
   "MEETINGS": "Reuniones",
   "SCHEDULE": "Horarios",
@@ -47,5 +47,8 @@
   "rejected-summary": "Rechazado",
   "rejected-detail": "Has rechazado",
   "ChooseCicle": "Elige Ciclo",
-  "Cicle": "Ciclo"
+  "Cicle": "Ciclo",
+  "Confirmed": "Confirmado",
+  "ALLMEETINGS": "Todas las reuniones",
+  "TeachersAmount": "Cantidad de profesores: "
 }
