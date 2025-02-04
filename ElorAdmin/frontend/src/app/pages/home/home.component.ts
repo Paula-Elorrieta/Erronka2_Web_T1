@@ -26,14 +26,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.userLogged = this.auth.getErabiltzaileLogueatua();
     console.log('Usuario logueado:', this.userLogged);
-    this.query.updateIkastetxeak().subscribe(
-      (response) => {
-        this.query.setIkastetxeak(response);
-      },
-      (error) => {
-        console.error('Errorea ikastetxeak kargatzean:', error);
-      }
-    );
   }
 
 }
