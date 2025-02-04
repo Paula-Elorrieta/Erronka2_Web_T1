@@ -11,6 +11,7 @@ import { ImageModule } from 'primeng/image';
 import { MegamenuComponent } from '../../Components/megamenu/megamenu.component';
 import { Ikastetxeak } from '../../interface/ikastetxeak';
 import * as mapboxgl from 'mapbox-gl';
+import { User } from '../../interface/user';
 
 @Component({
   selector: 'app-bileren-details',
@@ -31,8 +32,8 @@ export class BilerenDetailsComponent implements OnInit {
     'pk.eyJ1IjoiaXR6aS1hciIsImEiOiJjbTR0cnJvbmgwOG1xMmpyOXphYnk2YXA3In0.nvbObADvRjZvchA9t_gJog';
   id: string = '';
   reunion: Reunion = {};
-  irakasle: string = '';
-  ikasle: string = '';
+  irakasle: User = {};
+  ikasle: User = {};
   Ikastetxea: Ikastetxeak | undefined;
   map!: mapboxgl.Map;
   latUmt = 0;
@@ -54,14 +55,14 @@ export class BilerenDetailsComponent implements OnInit {
           this.queryS
             .getErabiltzailea(this.reunion.alumno_id!.toString())
             .subscribe(
-              (user) => (this.ikasle = user?.nombre || ''),
+              (user) => (this.ikasle = user as User),
               (error) => console.error('Error cargando ikaslea:', error)
             );
 
           this.queryS
             .getErabiltzailea(this.reunion.profesor_id!.toString())
             .subscribe(
-              (user) => (this.irakasle = user?.nombre || ''),
+              (user) => (this.irakasle = user as User),
               (error) => console.error('Error cargando irakaslea:', error)
             );
 
@@ -106,7 +107,7 @@ export class BilerenDetailsComponent implements OnInit {
       this.map = new mapboxgl.Map({
         accessToken: this.token,
         container: 'mapa',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/satellite-streets-v11',
         center: [this.Ikastetxea.LATITUD, this.Ikastetxea.LONGITUD],
         zoom: 16,
       });
@@ -134,7 +135,7 @@ export class BilerenDetailsComponent implements OnInit {
         )
         .addTo(this.map);
     } else {
-      console.error('No se encontraron coordenadas para el Ikastetxea');
+      console.error('Ez dira topatu koordenatuak.');
     }
   }
 

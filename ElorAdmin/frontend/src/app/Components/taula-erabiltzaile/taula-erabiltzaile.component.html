@@ -62,6 +62,8 @@
         </td>
         <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
           <p-button
+            icon="pi pi-user-minus"
+            *ngIf="erabiltzaile.tipo_id != 1"
             (click)="confirmEzabatzea(erabiltzaile)"
             [label]="'delete' | translate"
             severity="danger"
