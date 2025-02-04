@@ -147,6 +147,28 @@ app.get("/get-horarios-alumnos/:id", (req, res) => {
   });
 });
 
+app.get("/get-ciclos", (req, res) => {
+  const query = "SELECT * FROM ciclos";
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Errorea datu-basera konektatzean:", err);
+      return res.status(500).json({ message: "Errorea zerbitzarian" });
+    }
+
+    if (results.length > 0) {
+      const ciclos = results.map((row) => ({
+        id: row.id,
+        nombre: row.nombre,
+      }));
+
+      return res.status(200).json({ ciclos });
+    } else {
+      return res.status(404).json({ ciclos: [] });
+    }
+  });
+});
+
 app.get("/get-ciclos/:id", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) {
@@ -154,7 +176,7 @@ app.get("/get-ciclos/:id", (req, res) => {
   }
 
   const query = `
-    SELECT c.id, c.nombre 
+    SELECT c.id, c.nombre
     FROM ciclos c
     JOIN matriculaciones m ON c.id = m.ciclo_id
     WHERE m.alum_id = ?;
@@ -171,6 +193,48 @@ app.get("/get-ciclos/:id", (req, res) => {
     } else {
       return res.status(404).json({ ciclos: [] });
     }
+  });
+});
+
+app.put("/update-user/:id", (req, res) => {
+  const userId = req.params.id;
+  const { id, ...newItem } = req.body;
+
+  if (!userId || Object.keys(newItem).length === 0) {
+    return res.status(400).json({ error: "Datos inválidos" });
+  }
+
+  const query = "UPDATE users SET ? WHERE id = ?";
+
+  db.query(query, [newItem, userId], (err, results) => {
+    if (err) {
+      console.error("Error al actualizar el usuario:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json({ message: "Usuario actualizado con éxito", ...newItem });
+  });
+});
+
+app.post("/insert-user", (req, res) => {
+  const newItem = req.body;
+  const query = "INSERT INTO users SET ?";
+  db.query(query, newItem, (err, results) => {
+    if (err) throw err;
+    res.send({ id: results.insertId, ...newItem });
+  });
+});
+
+app.delete("/delete-user/:id", (req, res) => {
+  const { id } = req.params;
+  const query = "DELETE FROM users WHERE id = ?";
+  db.query(query, [id], (err, results) => {
+    if (err) throw err;
+    res.send(results);
   });
 });
 

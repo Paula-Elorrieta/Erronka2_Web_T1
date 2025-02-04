@@ -118,7 +118,7 @@ export class MegamenuComponent implements OnInit {
         });
       },
       error: (err: any) => {
-        console.error('Errorea erabiltzaileak kargatzean:', err);
+        console.log('Ez dira topatu bilerak :(');
       },
     });
   }

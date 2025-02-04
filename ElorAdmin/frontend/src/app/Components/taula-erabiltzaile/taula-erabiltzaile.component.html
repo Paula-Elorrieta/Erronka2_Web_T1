@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+<p-confirmdialog></p-confirmdialog>
 <div id="taulaErabiltzaileak">
   <p-table
     [value]="erabiltzaileak"
@@ -60,14 +62,11 @@
         </td>
         <td *ngIf="erabiltzaileLogueatua.tipo_id != 1">
           <p-button
-            label="Ezabatu"
-            *ngIf="erabiltzaile.tipo_id != 1"
-            icon="pi pi-trash"
-            [raised]="true"
+            (click)="confirmEzabatzea(erabiltzaile)"
+            [label]="'delete' | translate"
             severity="danger"
-            (onClick)="openDeleteDialog(erabiltzaile)"
-            >
-          </p-button>
+            [raised]="true"
+          />
         </td>
       </tr>
     </ng-template>
@@ -82,5 +81,3 @@
     </ng-template>
   </p-table>
 </div>
-
-

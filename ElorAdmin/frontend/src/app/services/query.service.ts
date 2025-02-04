@@ -63,13 +63,16 @@ export class QueryService {
       );
   }
 
-  updateErabiltzailea(user: User): Observable<any> {
-    console.log('User:', user);
-    return this.http.put<User>(`${this.apiUrl}/update-user`, user);
+  updateUser(user: User, id: string): Observable<any> {
+    return this.http.put<User>(`${this.apiUrl}/update-user/${id}`, user);
   }
 
-  addErabiltzailea(user: User): Observable<any> {
-    return this.http.post<User>(`${this.apiUrl}/add-user`, user);
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete<User>(`${this.apiUrl}/delete-user/${id}`);
+  }
+
+  insertErabiltzailea(user: User): Observable<any> {
+    return this.http.post<User>(`${this.apiUrl}/insert-user`, user);
   }
 
   getHorarios(userId: number): Observable<Horario[]> {

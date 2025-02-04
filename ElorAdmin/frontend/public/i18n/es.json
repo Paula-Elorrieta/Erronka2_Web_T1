@@ -35,10 +35,17 @@
   "HOME": "Inicio",
   "MEETINGS": "Reuniones",
   "SCHEDULE": "Horarios",
-  "VIEW": "Ver",
+  "VIEW": "Lista de Estudiantes",
   "LOGOUT": "Cerrar Sesión",
   "StudentsAmount": "Cantidad de estudiantes: ",
   "TodayMeetingAmmount": "Cantidad de reuniones de hoy: ",
   "MeetingDetails": "Detalles de la reunion",
-  "NoMeetingToday": "No hay reuniones hoy"
+  "NoMeetingToday": "No hay reuniones hoy",
+  "delete-message": "¿Quieres eliminar al usuario {{username}}?",
+  "delete-header": "Zona de Peligro",
+  "cancel": "Cancelar",
+  "rejected-summary": "Rechazado",
+  "rejected-detail": "Has rechazado",
+  "ChooseCicle": "Elige Ciclo",
+  "Cicle": "Ciclo"
 }

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { TableModule, TablePageEvent } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { User } from '../../interface/user';
-import { QueryService } from '../../services/query.service';
 import { CommonModule } from '@angular/common';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { AuthService } from '../../services/auth.service';
-import { ArgazkiPipe } from '../../pipes/argazki.pipe';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { EzabatuDialogComponent } from '../../users/ezabatu-dialog/ezabatu-dialog.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { User } from '../../interface/user';
+import { ArgazkiPipe } from '../../pipes/argazki.pipe';
+import { AuthService } from '../../services/auth.service';
+import { QueryService } from '../../services/query.service';
 
 @Component({
   selector: 'app-taula-erabiltzaile',
@@ -27,11 +27,14 @@ import { DialogModule } from 'primeng/dialog';
     TranslateModule,
     ConfirmDialogModule,
     DialogModule,
+    ConfirmDialog,
+    ToastModule,
+    ButtonModule,
   ],
   templateUrl: './taula-erabiltzaile.component.html',
   styleUrls: ['./taula-erabiltzaile.component.css'],
   standalone: true,
-  providers: [ MessageService, ConfirmationService ],
+  providers: [MessageService, ConfirmationService],
 })
 export class TaulaErabiltzaileComponent implements OnInit {
   erabiltzaileak: User[] = [];
@@ -39,8 +42,8 @@ export class TaulaErabiltzaileComponent implements OnInit {
   first: number = 0;
   rows: number = 10;
   selectedUser!: User;
-  displayDeleteDialog: boolean = false; // Declaración de la propiedad para mostrar el diálogo
   reunionesCount: number = 0;
+  id: string = '';
 
   constructor(
     private queryS: QueryService,
@@ -48,6 +51,7 @@ export class TaulaErabiltzaileComponent implements OnInit {
     private router: Router,
     private translateService: TranslateService,
     private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     this.translateService.setDefaultLang('eu');
     this.translateService.use('eu');
@@ -63,19 +67,64 @@ export class TaulaErabiltzaileComponent implements OnInit {
         console.log(this.erabiltzaileak);
 
         let ikasleCop = 0;
-        this.erabiltzaileak.forEach( erabiltzaile => {
+        this.erabiltzaileak.forEach((erabiltzaile) => {
           if (erabiltzaile.tipo_id === 4) {
             ikasleCop++;
           }
         });
-        this.queryS.setErabiltzaileCount(ikasleCop  );
+        this.queryS.setErabiltzaileCount(ikasleCop);
       },
       (error) => {
         console.error('Errorea erabiltzaileak kargatzean:', error);
       }
     );
+  }
 
-    
+  confirmEzabatzea(erabiltzailea: User) {
+    this.translateService
+      .get([
+        'delete-message',
+        'delete-header',
+        'delete',
+        'cancel',
+        'rejected-summary',
+        'rejected-detail',
+        'confirmed',
+        'delete-message',
+        'confirm-delete',
+      ])
+      .subscribe((translations) => {
+        this.confirmationService.confirm({
+          message: translations['delete-message'].replace(
+            '{{username}}',
+            erabiltzailea.username
+          ),
+          header: translations['delete-header'],
+          icon: 'pi pi-info-circle',
+          acceptLabel: translations['delete'],
+          rejectLabel: translations['cancel'],
+          rejectButtonProps: { severity: 'secondary', outlined: true },
+          acceptButtonProps: { severity: 'danger' },
+          accept: () => {
+            this.deleteUser(erabiltzailea.id!.toString());
+            this.messageService.add({
+              severity: 'info',
+              summary: translations['confirmed'],
+              detail: translations['confirm-delete'].replace(
+                '{{username}}',
+                erabiltzailea.username
+              ),
+            });
+          },
+          reject: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: translations['rejected-summary'],
+              detail: translations['rejected-detail'],
+            });
+          },
+        });
+      });
   }
 
   next() {
@@ -107,30 +156,23 @@ export class TaulaErabiltzaileComponent implements OnInit {
     this.router.navigate(['/users/details', user.id]);
   }
 
-
-  openDeleteDialog(user: User) {
-    this.selectedUser = user; // Asignar el usuario seleccionado al diálogo
-    this.displayDeleteDialog = true; // Mostrar el diálogo
-  }
-  
-  ezabatuUser(user: User) {
-    // Aquí puedes agregar la lógica para eliminar al usuario
-    console.log(`Usuario ${user.nombre} eliminado.`);
-  
-    // Llamar a la API para eliminar al usuario, por ejemplo:
-    // this.queryService.deleteUser(user.id).subscribe(() => {
-    //   this.messageService.add({ severity: 'success', summary: 'Usuario eliminado', detail: `${user.nombre} ha sido eliminado.` });
-    // });
-  
-    // Cerrar el diálogo después de eliminar
-    this.displayDeleteDialog = false;
-  }
-
   gehituErabiltzaile() {
     this.router.navigate(['/users/gehitu']);
   }
 
   editatuErabiltzaile(user: User) {
     this.router.navigate(['/users/editatu', user.id]);
+  }
+
+  deleteUser(id: string) {
+    this.queryS.deleteUser(id).subscribe(
+      (response) => {
+        console.log('Erabiltzailea ondo ezabatu da:', response);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    );
   }
 }
