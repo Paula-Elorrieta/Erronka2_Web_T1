@@ -7,22 +7,20 @@ import { User } from '../interface/user';
 })
 export class ArgazkiPipe implements PipeTransform {
   transform(erabiltzailea: User): string {
-    if (erabiltzailea.argazkia) {
 
-      console.log('Argazkia:', erabiltzailea.argazkia);
-
-      if (erabiltzailea.argazkia.type === 'Buffer') {
-        const buffer = erabiltzailea.argazkia.data;
-
-        // Verifica que el buffer exista y sea válido
-        if (Array.isArray(buffer) && buffer.length > 0) {
-          const uint8Array = new Uint8Array(buffer);
-          const binaryString = uint8Array.reduce((data, byte) => data + String.fromCharCode(byte), '');
-          return `data:image/jpeg;base64,${binaryString}`;
-        }
-      }
+    if (
+      erabiltzailea?.argazkia?.type === 'Buffer' &&
+      Array.isArray(erabiltzailea.argazkia.data)
+    ) {
+      const uint8Array = new Uint8Array(erabiltzailea.argazkia.data);
+      const binaryString = uint8Array.reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ''
+      );
+      const base64String = btoa(binaryString)
+      return `data:image/jpeg;base64,${base64String}`;
     }
+
     return 'img/no-image.png';
   }
-
 }
