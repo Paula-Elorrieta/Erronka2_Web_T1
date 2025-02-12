@@ -50,5 +50,14 @@
   "Cicle": "Cicle",
   "Confirmed": "Confirmed",
   "ALLMEETINGS": "All Meetings",
-  "TeachersAmount": "Teachers Amount: "
+  "TeachersAmount": "Teachers Amount: ",
+  "nombre": "Name",
+  "apellidos": "Surname",
+  "tipo_id": "Type of ID",
+  "required-field": "Required field",
+  "min-length": "Must be at least {{length}} characters",
+  "invalid-email": "Invalid email",
+  "invalid-dni": "Invalid DNI",
+  "invalid-phone": "Invalid phone number",
+  "save": "Save"
 }

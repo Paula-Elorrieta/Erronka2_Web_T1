@@ -51,5 +51,12 @@
   "Cicle": "Zikloa",
   "Confirmed": "Berretsi",
   "ALLMEETINGS": "Bilerak guztiak ikusi",
-  "TeachersAmount": "Irakasle kopurua: "
+  "TeachersAmount": "Irakasle kopurua: ",
+  "tipo_id": "ID mota",
+  "required-field": "Eremu beharrezkoa",
+  "min-length": "{{length}} karaktere gutxienez izan behar ditu",
+  "invalid-email": "Emaila ez da zuzena",
+  "invalid-dni": "NAN ez da zuzena",
+  "invalid-phone": "Telefono zenbakia ez da zuzena",
+  "save": "Gorde"
 }

@@ -7,13 +7,42 @@
     <ul class="user-details-list">
       <li>
         <i class="pi pi-user"></i>
-        <strong>{{ "username" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.username" />
+        <strong>{{ "username" | translate }}*:</strong>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="user.username"
+          required
+          minlength="3"
+          #username="ngModel"
+        />
+        <div *ngIf="username.invalid && username.touched" class="error">
+          <small *ngIf="username.errors?.['required']">{{
+            "required-field" | translate
+          }}</small>
+          <small *ngIf="username.errors?.['minlength']">{{
+            "min-length" | translate : { length: 3 }
+          }}</small>
+        </div>
       </li>
       <li>
-        <i class="pi pi-user"></i>
-        <strong>{{ "password" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.password" />
+        <i class="pi pi-lock"></i>
+        <strong>{{ "password" | translate }}*:</strong>
+        <input
+          type="password"
+          pInputText
+          [(ngModel)]="user.password"
+          required
+          #password="ngModel"
+        />
+        <div *ngIf="password.invalid && password.touched" class="error">
+          <small *ngIf="password.errors?.['required']">{{
+            "required-field" | translate
+          }}</small>
+          <small *ngIf="password.errors?.['minlength']">{{
+            "min-length" | translate : { length: 6 }
+          }}</small>
+        </div>
       </li>
       <li>
         <i class="pi pi-user"></i>
@@ -27,16 +56,32 @@
       </li>
       <li>
         <i class="pi pi-at"></i> <strong>{{ "email" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.email" />
+        <input
+          type="email"
+          pInputText
+          [(ngModel)]="user.email"
+          #email="ngModel"
+        />
+        <div *ngIf="email.invalid && email.touched" class="error">
+          <small *ngIf="email.errors?.['email']">{{
+            "invalid-email" | translate
+          }}</small>
+        </div>
       </li>
       <li>
         <i class="pi pi-id-card"></i> <strong>{{ "dni" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.dni" />
-      </li>
-      <li>
-        <i class="pi pi-id-card"></i>
-        <strong>{{ "tipo_id" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.tipo_id" />
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="user.dni"
+          pattern="^[0-9]{8}[A-Za-z]$"
+          #dni="ngModel"
+        />
+        <div *ngIf="dni.invalid && dni.touched" class="error">
+          <small *ngIf="dni.errors?.['pattern']">{{
+            "invalid-dni" | translate
+          }}</small>
+        </div>
       </li>
       <li>
         <i class="pi pi-map-marker"></i>
@@ -44,12 +89,39 @@
         <input type="text" pInputText [(ngModel)]="user.direccion" />
       </li>
       <li>
+        <i class="pi pi-id-card"></i>
+        <strong>{{ "tipo_id" | translate }}:</strong>
+        <input type="number" pInputText [(ngModel)]="user.tipo_id" />
+      </li>
+      <li>
         <i class="pi pi-phone"></i> <strong>{{ "phone1" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.telefono1" />
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="user.telefono1"
+          pattern="^[0-9]{9}$"
+          #telefono1="ngModel"
+        />
+        <div *ngIf="telefono1.invalid && telefono1.touched" class="error">
+          <small *ngIf="telefono1.errors?.['pattern']">{{
+            "invalid-phone" | translate
+          }}</small>
+        </div>
       </li>
       <li>
         <i class="pi pi-phone"></i> <strong>{{ "phone2" | translate }}:</strong>
-        <input type="text" pInputText [(ngModel)]="user.telefono2" />
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="user.telefono2"
+          pattern="^[0-9]{9}$"
+          #telefono2="ngModel"
+        />
+        <div *ngIf="telefono2.invalid && telefono2.touched" class="error">
+          <small *ngIf="telefono2.errors?.['pattern']">{{
+            "invalid-phone" | translate
+          }}</small>
+        </div>
       </li>
     </ul>
     <div>
@@ -58,6 +130,7 @@
         icon="pi pi-save"
         [styleClass]="'p-button-success'"
         (onClick)="gorde()"
+        [disabled]="!username.valid || !password.valid"
       ></p-button>
       <div>
         <p-button

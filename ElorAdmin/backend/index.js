@@ -12,7 +12,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "elorbase",
+  database: "elorbase3",
   port: "3307",
 });
 
@@ -108,20 +108,29 @@ app.get("/get-horarios-alumnos/:id", (req, res) => {
   }
 
   const query = `
-    SELECT
-      h.dia,
-      h.hora,
+    SELECT 
+      h.dia, h.hora,
       h.profe_id,
       MIN(m.nombre) AS nombre,
       m.nombre_eus,
-      m.nombre_en
-    FROM horarios h
-    JOIN modulos m ON h.modulo_id = m.id
-    JOIN ciclos c ON m.ciclo_id = c.id
-    JOIN matriculaciones mtr ON mtr.ciclo_id = c.id
-    JOIN users u ON mtr.alum_id = u.id
-    WHERE mtr.alum_id = ?
-    GROUP BY h.dia, h.hora, h.profe_id, c.nombre, u.username;
+      m.nombre_en,
+    MIN(m.nombre) AS modulo, 
+      c.nombre AS ciclo,
+    u.username
+    FROM 
+      horarios h
+    JOIN 
+      modulos m ON h.modulo_id = m.id
+    JOIN 
+      ciclos c ON m.ciclo_id = c.id
+    JOIN 
+      matriculaciones mtr ON mtr.ciclo_id = c.id AND mtr.curso = m.curso 
+    JOIN 
+      users u ON mtr.alum_id = u.id
+    WHERE 
+      mtr.alum_id = ?
+    GROUP BY 
+      h.dia, h.hora, c.nombre, u.username;
   `;
 
   db.query(query, [id], (err, results) => {

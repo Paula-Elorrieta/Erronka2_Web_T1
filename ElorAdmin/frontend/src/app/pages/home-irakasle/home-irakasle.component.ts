@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
-import { DetailsComponent } from "../../teachers/details/details.component";
+import { DetailsComponent } from '../../users/teachers/details/details.component';
 
 @Component({
   selector: 'app-home-irakasle',
@@ -11,11 +11,4 @@ import { DetailsComponent } from "../../teachers/details/details.component";
   templateUrl: './home-irakasle.component.html',
   styleUrl: './home-irakasle.component.css',
 })
-export class HomeIrakasleComponent {
-
-
-
-
-
-
-}
+export class HomeIrakasleComponent {}

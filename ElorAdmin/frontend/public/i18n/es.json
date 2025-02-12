@@ -50,5 +50,14 @@
   "Cicle": "Ciclo",
   "Confirmed": "Confirmado",
   "ALLMEETINGS": "Todas las reuniones",
-  "TeachersAmount": "Cantidad de profesores: "
+  "TeachersAmount": "Cantidad de profesores: ",
+  "nombre": "Nombre",
+  "apellidos": "Apellidos",
+  "tipo_id": "Tipo de ID",
+  "required-field": "Campo requerido",
+  "min-length": "Debe tener al menos {{length}} caracteres",
+  "invalid-email": "Correo electrónico no válido",
+  "invalid-dni": "DNI no válido",
+  "invalid-phone": "Número de teléfono no válido",
+  "save": "Guardar"
 }

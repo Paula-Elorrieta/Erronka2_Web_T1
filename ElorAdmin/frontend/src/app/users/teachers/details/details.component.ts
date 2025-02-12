@@ -6,10 +6,10 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { Button } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
-import { MegamenuComponent } from '../../Components/megamenu/megamenu.component';
-import { User } from '../../interface/user';
-import { ArgazkiPipe } from '../../pipes/argazki.pipe';
-import { QueryService } from '../../services/query.service';
+import { MegamenuComponent } from '../../../Components/megamenu/megamenu.component';
+import { User } from '../../../interface/user';
+import { ArgazkiPipe } from '../../../pipes/argazki.pipe';
+import { QueryService } from '../../../services/query.service';
 
 @Component({
   selector: 'app-details',
